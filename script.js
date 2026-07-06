@@ -105,9 +105,20 @@
      ========================================================= */
 
   /**
+   * Detects whether a line is a general circular (تعميم) or a direct water schedule (دور).
+   */
+  function detectAnnouncementType(line) {
+    if (/تعميم|يرجى التعميم|للتعميم|إشعار|تنويه|ملاحظة|يُرجى|يرجى العلم/.test(line)) {
+      return 'تعميم';
+    }
+    return 'دور';
+  }
+
+  /**
    * Parses the raw textarea content into structured announcement objects.
    * Uses the Location Engine when available for smart area detection.
    * Also handles non-bulleted lines that contain a recognized Jordanian location.
+   * Deduplicates entries that refer to the same canonical location.
    */
   function parseText(rawText) {
     if (!rawText || !rawText.trim()) return [];
@@ -115,6 +126,9 @@
     const lines = rawText.split('\n');
     const items = [];
     let idCounter = 0;
+
+    // Map: canonical location key → item index, for deduplication
+    const locationKeyMap = {};
 
     lines.forEach((line) => {
       const trimmed = line.trim();
@@ -140,18 +154,48 @@
       const { area, locations } = extractAreaAndLocations(cleaned, timeInfo);
       const description = extractDescription(cleaned, area);
       const priority = detectPriority(cleaned);
+      const type = detectAnnouncementType(cleaned);
 
-      items.push({
+      // Build a deduplication key: canonical location + period
+      const canonicalKey = (locations.length > 0 ? locations[0] : area)
+        .replace(/\s+/g, '')
+        .replace(/[ةه]/g, 'ه')
+        .replace(/[أإآا]/g, 'ا');
+      const dedupKey = `${canonicalKey}__${timeInfo.period}`;
+
+      // If we already have an entry for this location+period, merge instead of duplicating
+      if (locationKeyMap[dedupKey] !== undefined) {
+        const existingIdx = locationKeyMap[dedupKey];
+        const existing = items[existingIdx];
+        // Prefer the entry that has a time over one that doesn't
+        if (existing.period === 'none' && timeInfo.period !== 'none') {
+          items[existingIdx] = {
+            ...existing,
+            time: timeInfo.label,
+            period: timeInfo.period,
+            sortMinutes: timeInfo.minutes,
+            description: description.length > existing.description.length ? description : existing.description,
+          };
+        }
+        // If both have no time or same period, just skip the duplicate
+        return;
+      }
+
+      const newItem = {
         id: `item-${idCounter++}`,
         area: area || cleaned,
-        locations: locations,          // ← array of detected location names
+        locations: locations,
         time: timeInfo.label,
-        period: timeInfo.period,       // 'morning' | 'afternoon' | 'evening' | 'none'
+        period: timeInfo.period,
         sortMinutes: timeInfo.minutes,
         description: description,
         priority: priority,
+        type: type,           // 'دور' | 'تعميم'
         raw: cleaned,
-      });
+      };
+
+      locationKeyMap[dedupKey] = items.length;
+      items.push(newItem);
     });
 
     return items;
@@ -341,11 +385,19 @@
   }
 
   function buildCardElement(item) {
+    const type = item.type || 'دور';
+    const isCircular = type === 'تعميم';
+
     const card = document.createElement('article');
-    card.className = `ann-card period-${item.period}`;
+    card.className = `ann-card period-${item.period}${isCircular ? ' card-circular' : ''}`;
     card.dataset.id = item.id;
 
     const isLong = item.description.length > 90;
+
+    // Type badge
+    const typeBadge = isCircular
+      ? `<span class="type-badge badge-circular"><i class="fa-solid fa-bullhorn"></i> تعميم</span>`
+      : `<span class="type-badge badge-schedule"><i class="fa-solid fa-droplet"></i> دور</span>`;
 
     // Build locations chips if multiple locations detected
     const locationsHtml = (item.locations && item.locations.length > 1)
@@ -354,15 +406,23 @@
         ).join('')}</div>`
       : '';
 
+    // For circulars, use megaphone icon instead of location pin
+    const areaIcon = isCircular
+      ? `<i class="fa-solid fa-bullhorn" aria-hidden="true"></i>`
+      : `<i class="fa-solid fa-location-dot" aria-hidden="true"></i>`;
+
     card.innerHTML = `
       <div class="card-top">
         <h3 class="card-area">
-          <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+          ${areaIcon}
           <span class="card-area-text">${highlightSearch(escapeHtml(item.area), searchQuery)}</span>
         </h3>
-        <button class="card-copy-btn" data-action="copy" aria-label="نسخ هذا الإعلان" title="نسخ">
-          <i class="fa-regular fa-copy"></i>
-        </button>
+        <div class="card-top-actions">
+          ${typeBadge}
+          <button class="card-copy-btn" data-action="copy" aria-label="نسخ هذا الإعلان" title="نسخ">
+            <i class="fa-regular fa-copy"></i>
+          </button>
+        </div>
       </div>
 
       ${locationsHtml}
@@ -372,7 +432,7 @@
         ${highlightSearch(escapeHtml(item.time), searchQuery)}
       </span>
 
-      <p class="card-desc${isLong ? '' : ''}">
+      <p class="card-desc">
         <i class="fa-regular fa-note-sticky" aria-hidden="true" style="opacity:.55;margin-left:6px;"></i>
         ${highlightSearch(escapeHtml(item.description), searchQuery)}
       </p>
