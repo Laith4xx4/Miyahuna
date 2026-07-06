@@ -16,6 +16,12 @@
   const locationEngine = new LocationEngine();
   let engineReady = false;
 
+  /* ---------- Map Engine ---------- */
+  let miyahunaMap = null;
+  let mapReady = false;
+  let serviceDotVisible = true;
+  let activeView = 'cards';   // 'cards' | 'map'
+
   /* ---------- DOM references ---------- */
   const el = {
     dateLabel: document.getElementById('currentDate'),
@@ -38,6 +44,20 @@
     statTimed: document.getElementById('statTimed'),
     statUntimed: document.getElementById('statUntimed'),
     toast: document.getElementById('toast'),
+    // View Switcher
+    btnViewCards: document.getElementById('btnViewCards'),
+    btnViewMap: document.getElementById('btnViewMap'),
+    resultsPanel: document.getElementById('resultsPanel'),
+    mapPanel: document.getElementById('mapPanel'),
+    // Map controls
+    mapWrapper: document.getElementById('mapWrapper'),
+    btnToggleMap: document.getElementById('btnToggleMap'),
+    mapCollapseIcon: document.getElementById('mapCollapseIcon'),
+    btnResetMap: document.getElementById('btnResetMap'),
+    btnToggleServiceDots: document.getElementById('btnToggleServiceDots'),
+    mapSearchInput: document.getElementById('mapSearchInput'),
+    btnMapSearch: document.getElementById('btnMapSearch'),
+    mapHint: document.getElementById('mapHint'),
   };
 
   /* =========================================================
@@ -48,6 +68,9 @@
     bindEvents();
     updateStatistics();
     renderCards([]);
+
+    // Initialise the interactive map
+    initMap();
 
     // Load the location engine
     try {
@@ -98,6 +121,25 @@
 
     // Event delegation for card actions (copy / expand)
     el.cardsContainer.addEventListener('click', handleCardContainerClick);
+
+    // View Switcher controls
+    el.btnViewCards.addEventListener('click', () => switchView('cards'));
+    el.btnViewMap.addEventListener('click', () => switchView('map'));
+
+    // ── Map controls ──────────────────────────────────────
+    el.btnToggleMap.addEventListener('click', toggleMapCollapse);
+    el.btnResetMap.addEventListener('click', () => {
+      if (mapReady) miyahunaMap.resetView();
+    });
+    el.btnToggleServiceDots.addEventListener('click', () => {
+      serviceDotVisible = !serviceDotVisible;
+      el.btnToggleServiceDots.classList.toggle('active', serviceDotVisible);
+      if (mapReady) miyahunaMap.toggleServiceDots(serviceDotVisible);
+    });
+    el.btnMapSearch.addEventListener('click', handleMapSearch);
+    el.mapSearchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') handleMapSearch();
+    });
   }
 
   /* =========================================================
@@ -136,8 +178,8 @@
 
       let cleaned;
 
-      // Primary: bullet-marked lines
-      const bulletMatch = trimmed.match(/^[*\-•●▪️]\s*(.+)$/);
+      // Primary: bullet-marked lines OR numbered list lines (١. / 1. / 1) format)
+      const bulletMatch = trimmed.match(/^(?:[*\-•●▪️]|[٠-٩\d]+[.)،])\s*(.+)$/);
       if (bulletMatch) {
         cleaned = bulletMatch[1].trim();
         if (!cleaned) return;
@@ -653,11 +695,19 @@
     refresh();
 
     if (announcements.length === 0) {
-      showToast('لم يتم العثور على أي إعلانات. تأكد من استخدام (*) قبل كل سطر');
+      showToast('لم يتم العثور على أي إعلانات. تأكد من استخدام (*) أو أرقام قبل كل سطر');
+      if (mapReady) miyahunaMap.clearAnnouncements();
     } else {
       const totalLocs = new Set(announcements.flatMap(a => a.locations)).size;
       const locMsg = totalLocs > 0 ? ` — تم التعرف على ${toArabicDigits(totalLocs)} منطقة` : '';
       showToast(`تم تحليل ${toArabicDigits(announcements.length)} إعلان بنجاح${locMsg}`);
+
+      // تحديث الخريطة بالمناطق المكتشفة
+      if (mapReady) {
+        miyahunaMap.updateFromAnnouncements(announcements);
+        // إخفاء الرسالة التوجيهية
+        if (el.mapHint) el.mapHint.classList.add('hidden');
+      }
     }
   }
 
@@ -675,6 +725,14 @@
     announcements = [];
     updateStatistics();
     renderCards([]);
+
+    // مسح الخريطة وإعادة عرض التلميح
+    if (mapReady) {
+      miyahunaMap.clearAnnouncements();
+      miyahunaMap.resetView();
+    }
+    if (el.mapHint) el.mapHint.classList.remove('hidden');
+
     showToast('تم تنظيف البيانات');
   }
 
@@ -806,6 +864,101 @@
     toastTimer = setTimeout(() => {
       el.toast.classList.remove('show');
     }, 2200);
+  }
+
+  /* =========================================================
+     MAP FUNCTIONS
+     ========================================================= */
+
+  /**
+   * تهيئة الخريطة التفاعلية
+   */
+  function initMap() {
+    // تأخير بسيط لضمان رسم الـ DOM أولاً
+    setTimeout(() => {
+      try {
+        if (typeof MiyahunaMap === 'undefined' || typeof JordanRegions === 'undefined' || typeof L === 'undefined') {
+          console.warn('Map libraries not loaded yet.');
+          return;
+        }
+        miyahunaMap = new MiyahunaMap('miyahunaMap');
+        miyahunaMap.init();
+        mapReady = true;
+        if (announcements.length > 0) {
+          miyahunaMap.updateFromAnnouncements(announcements);
+        }
+        // إجبار الخريطة على حساب الحجم الصحيح
+        setTimeout(() => miyahunaMap.invalidateSize(), 300);
+      } catch (err) {
+        console.error('Map init failed:', err);
+      }
+    }, 100);
+  }
+
+  /**
+   * طي/فتح لوحة الخريطة
+   */
+  function toggleMapCollapse() {
+    const collapsed = el.mapWrapper.classList.toggle('collapsed');
+    el.mapCollapseIcon.classList.toggle('fa-chevron-up', !collapsed);
+    el.mapCollapseIcon.classList.toggle('fa-chevron-down', collapsed);
+    el.btnToggleMap.setAttribute('aria-expanded', String(!collapsed));
+    // إجبار إعادة الحساب عند الفتح
+    if (!collapsed && mapReady) {
+      setTimeout(() => miyahunaMap.invalidateSize(), 420);
+    }
+  }
+
+  /**
+   * الانتقال إلى منطقة محددة على الخريطة عبر حقل البحث
+   */
+  function handleMapSearch() {
+    const query = el.mapSearchInput.value.trim();
+    if (!query) return;
+    if (!mapReady) { showToast('الخريطة لا تزال تُحمَّل...'); return; }
+
+    // افتح الخريطة إذا كانت مطوية
+    if (el.mapWrapper.classList.contains('collapsed')) toggleMapCollapse();
+
+    miyahunaMap.flyToRegion(query);
+    showToast(`جارٍ الانتقال إلى: ${query}`);
+  }
+
+  /**
+   * التبديل بين الكروت والخريطة
+   */
+  function switchView(view) {
+    if (activeView === view) return;
+    activeView = view;
+
+    // تحديث أزرار التبديل النشطة
+    el.btnViewCards.classList.toggle('active', view === 'cards');
+    el.btnViewMap.classList.toggle('active', view === 'map');
+    el.btnViewCards.setAttribute('aria-pressed', String(view === 'cards'));
+    el.btnViewMap.setAttribute('aria-pressed', String(view === 'map'));
+
+    // إظهار وإخفاء اللوحات
+    if (view === 'cards') {
+      el.resultsPanel.removeAttribute('hidden');
+      el.mapPanel.setAttribute('hidden', '');
+    } else {
+      el.resultsPanel.setAttribute('hidden', '');
+      el.mapPanel.removeAttribute('hidden');
+      
+      // تهيئة الخريطة إذا لم تكن جاهزة بعد
+      if (!mapReady) {
+        initMap();
+      }
+
+      // إجبار الخريطة على تحديث حجمها لتظهر بشكل صحيح
+      setTimeout(() => {
+        if (mapReady) {
+          miyahunaMap.updateFromAnnouncements(announcements);
+          miyahunaMap.invalidateSize();
+        }
+      }, 80);
+    }
+    showToast(view === 'cards' ? 'تم الانتقال لعرض الكروت' : 'تم الانتقال لعرض الخريطة');
   }
 
   /* ---------- Boot ---------- */

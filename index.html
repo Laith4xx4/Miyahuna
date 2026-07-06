@@ -3,12 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>جدول أدوار المياه</title>
+<title>جدول أدوار المياه — مياهنا الأردن</title>
+<meta name="description" content="جدول أدوار توزيع المياه لمناطق مياهنا في الأردن مع خريطة تفاعلية">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<!-- Leaflet.js — خرائط تفاعلية مفتوحة المصدر -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -110,6 +113,18 @@
     <section class="panel control-panel" aria-labelledby="controlHeading">
       <h2 id="controlHeading" class="sr-only">أدوات البحث والتصفية</h2>
 
+      <!-- View Switcher Segmented Control -->
+      <div class="view-switch-row">
+        <div class="view-switch-group">
+          <button id="btnViewCards" class="view-switch-btn active" aria-pressed="true">
+            <i class="fa-solid fa-table-cells-large"></i> عرض الكروت
+          </button>
+          <button id="btnViewMap" class="view-switch-btn" aria-pressed="false">
+            <i class="fa-solid fa-map-location-dot"></i> عرض الخريطة
+          </button>
+        </div>
+      </div>
+
       <div class="search-box">
         <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
         <input
@@ -145,7 +160,7 @@
     </section>
 
     <!-- ========== RESULTS ========== -->
-    <section class="panel results-panel" aria-labelledby="resultsHeading">
+    <section class="panel results-panel" id="resultsPanel" aria-labelledby="resultsHeading">
       <div class="panel-head">
         <h2 id="resultsHeading"><i class="fa-solid fa-layer-group"></i> النتائج</h2>
         <span class="hint" id="resultsCount"></span>
@@ -153,7 +168,7 @@
 
       <div id="cardsContainer" class="cards-grid" aria-live="polite"></div>
 
-      <div id="emptyState" class="empty-state" hidden>
+      <div id="emptyState" class="empty-state">
         <i class="fa-regular fa-folder-open"></i>
         <p>لا توجد نتائج بعد. الصق النص أعلاه واضغط "تحليل النص"</p>
       </div>
@@ -161,6 +176,52 @@
       <div id="noMatchState" class="empty-state" hidden>
         <i class="fa-solid fa-magnifying-glass"></i>
         <p>لا توجد نتائج تطابق بحثك</p>
+      </div>
+    </section>
+
+    <!-- ========== INTERACTIVE MAP ========== -->
+    <section class="panel map-panel" id="mapPanel" aria-labelledby="mapHeading" hidden>
+      <div class="panel-head">
+        <h2 id="mapHeading">
+          <i class="fa-solid fa-map-location-dot"></i>
+          خريطة مناطق الخدمة
+        </h2>
+        <div class="map-panel-actions">
+          <button id="btnToggleServiceDots" class="btn-map-toggle active" title="إظهار/إخفاء نقاط الخدمة">
+            <i class="fa-solid fa-circle-dot"></i> نقاط الخدمة
+          </button>
+          <button id="btnResetMap" class="btn-map-toggle" title="إعادة عرض الأردن كاملاً">
+            <i class="fa-solid fa-arrows-to-circle"></i> إعادة الضبط
+          </button>
+          <button id="btnToggleMap" class="btn-map-collapse" aria-expanded="true" title="تصغير/تكبير الخريطة">
+            <i class="fa-solid fa-chevron-up" id="mapCollapseIcon"></i>
+          </button>
+        </div>
+      </div>
+
+      <div id="mapWrapper" class="map-wrapper">
+        <div id="miyahunaMap" class="map-container"></div>
+
+        <!-- شريط البحث السريع في الخريطة -->
+        <div class="map-search-bar">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input
+            type="text"
+            id="mapSearchInput"
+            placeholder="ابحث عن منطقة على الخريطة..."
+            autocomplete="off"
+            aria-label="بحث على الخريطة"
+          >
+          <button id="btnMapSearch" class="btn-map-go">
+            <i class="fa-solid fa-location-crosshairs"></i> انتقل
+          </button>
+        </div>
+
+        <!-- نص توضيحي قبل التحليل -->
+        <div id="mapHint" class="map-hint">
+          <i class="fa-solid fa-circle-info"></i>
+          الصق نص أدوار المياه واضغط <strong>تحليل النص</strong> لتظهر المناطق على الخريطة
+        </div>
       </div>
     </section>
 
@@ -173,7 +234,10 @@
 
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-<script src="locationEngine.js"></script>
-<script src="script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js" defer></script>
+<script src="locationEngine.js" defer></script>
+<script src="jordan-regions.js" defer></script>
+<script src="map.js" defer></script>
+<script src="script.js" defer></script>
 </body>
 </html>

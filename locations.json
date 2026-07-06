@@ -710,6 +710,106 @@
       "type": "city",
       "parent": "aqaba",
       "aliases": ["العقبة", "عقبة"]
+    },
+
+    {
+      "id": "ain_basha",
+      "name": "عين الباشا",
+      "type": "district",
+      "parent": "amman",
+      "aliases": ["عين باشا", "لواء عين الباشا", "لواء عين باشا"]
+    },
+    {
+      "id": "ain_basha_urban_dev",
+      "name": "التطوير الحضري",
+      "type": "neighborhood",
+      "parent": "ain_basha",
+      "aliases": ["التطوير الحضري عين الباشا", "حي التطوير الحضري", "التطوير"]
+    },
+    {
+      "id": "ain_basha_iskan_qaqish",
+      "name": "اسكان قاقيش",
+      "type": "housing",
+      "parent": "ain_basha",
+      "aliases": ["إسكان قاقيش", "قاقيش", "سكن قاقيش"]
+    },
+    {
+      "id": "ain_basha_abu_rawwa",
+      "name": "ابو رواع",
+      "type": "neighborhood",
+      "parent": "ain_basha",
+      "aliases": ["أبو رواع", "ابو رواع عين الباشا"]
+    },
+    {
+      "id": "ain_basha_umm_safatin",
+      "name": "ام صفاتين",
+      "type": "neighborhood",
+      "parent": "ain_basha",
+      "aliases": ["أم صفاتين", "ام الصفاتين", "صفاتين"]
+    },
+    {
+      "id": "ain_basha_prince_ali",
+      "name": "حي الامير علي",
+      "type": "neighborhood",
+      "parent": "ain_basha",
+      "aliases": ["حي الأمير علي", "الامير علي", "الأمير علي", "التدريب المهني", "حي الامير علي التدريب المهني"]
+    },
+    {
+      "id": "ain_basha_umm_aliqah",
+      "name": "ام عليقة",
+      "type": "neighborhood",
+      "parent": "ain_basha",
+      "aliases": ["أم عليقة", "ام العليقة", "باب عمان", "ام عليقة باب عمان"]
+    },
+    {
+      "id": "ain_basha_mobas",
+      "name": "موبص",
+      "type": "neighborhood",
+      "parent": "ain_basha",
+      "aliases": ["موبص السفلي", "السفلي عين الباشا", "موبص سفلي"]
+    },
+
+    {
+      "id": "sulayhi",
+      "name": "السليحي",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": ["سليحي", "السليحي الشرقي", "الحي الشرقي السليحي"]
+    },
+    {
+      "id": "juaydidat",
+      "name": "الجعيديدة",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": ["جعيديدة", "الجعيديده", "الجعيديدة الشرقي", "الجعيديدة الغربي", "الجعيديدة الشرقي والغربي"]
+    },
+    {
+      "id": "hanw",
+      "name": "الحنو",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": ["حنو", "الحنو العالي", "العالي الحنو", "ابو سامي العدوان", "الحنو ابو سامي العدوان"]
+    },
+    {
+      "id": "rumman",
+      "name": "الرمان",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": ["رمان", "حي الزعبية", "الرمان الزعبية", "شارع الاستخبارات", "الرمان شارع الاستخبارات"]
+    },
+    {
+      "id": "baqa",
+      "name": "البقعة",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": ["بقعة", "مخيم البقعة", "البقعه"]
+    },
+    {
+      "id": "baqa_nablus",
+      "name": "نابلس البقعة",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": ["نابلس", "منطقة نابلس", "البقعة نابلس"]
     }
   ]
 }
