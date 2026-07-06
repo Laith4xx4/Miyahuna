@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>جدول أدوار المياه</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Ambient ripple background -->
+<div class="ripple-bg" aria-hidden="true">
+  <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+    <path d="M0,160 C240,220 480,100 720,140 C960,180 1200,260 1440,180 L1440,320 L0,320 Z"></path>
+  </svg>
+</div>
+
+<div class="app-shell">
+
+  <!-- ========== HEADER ========== -->
+  <header class="app-header">
+    <div class="header-content">
+      <div class="header-titles">
+        <div class="eyebrow"><i class="fa-solid fa-droplet" aria-hidden="true"></i><span>إدارة توزيع المياه</span></div>
+        <h1 class="page-title">جدول أدوار المياه</h1>
+        <p class="page-date" id="currentDate" aria-live="polite"></p>
+      </div>
+      <div class="header-mark" aria-hidden="true">
+        <svg viewBox="0 0 100 100" class="drop-mark">
+          <path d="M50 8 C50 8 20 48 20 68 A30 30 0 0 0 80 68 C80 48 50 8 50 8 Z"/>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-main">
+
+    <!-- ========== INPUT SECTION ========== -->
+    <section class="panel input-panel" aria-labelledby="inputHeading">
+      <div class="panel-head">
+        <h2 id="inputHeading"><i class="fa-solid fa-file-lines"></i> النص الخام</h2>
+        <span class="hint">الصق نص الأدوار كما هو، وسيقوم النظام بتحليله تلقائياً</span>
+      </div>
+
+      <textarea
+        id="rawInput"
+        class="raw-textarea"
+        placeholder="الصق نص الأدوار هنا..."
+        aria-label="نص أدوار المياه الخام"
+        spellcheck="false"
+      ></textarea>
+
+      <div class="button-row">
+        <button id="btnParse" class="btn btn-primary">
+          <i class="fa-solid fa-download"></i> تحليل النص
+        </button>
+        <button id="btnClear" class="btn btn-ghost">
+          <i class="fa-solid fa-trash"></i> تنظيف
+        </button>
+        <button id="btnCopyAll" class="btn btn-secondary">
+          <i class="fa-regular fa-copy"></i> نسخ النتائج
+        </button>
+        <button id="btnExportJson" class="btn btn-secondary">
+          <i class="fa-solid fa-file-code"></i> تحميل JSON
+        </button>
+        <button id="btnExportTxt" class="btn btn-secondary">
+          <i class="fa-solid fa-file-lines"></i> تحميل TXT
+        </button>
+      </div>
+    </section>
+
+    <!-- ========== STATISTICS ========== -->
+    <section class="stats-grid" id="statsGrid" aria-label="الإحصائيات">
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-areas"><i class="fa-solid fa-map-location-dot"></i></div>
+        <div class="stat-info">
+          <span class="stat-value" id="statAreas">0</span>
+          <span class="stat-label">عدد المناطق</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-total"><i class="fa-solid fa-list-check"></i></div>
+        <div class="stat-info">
+          <span class="stat-value" id="statTotal">0</span>
+          <span class="stat-label">عدد الإعلانات</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-timed"><i class="fa-solid fa-clock"></i></div>
+        <div class="stat-info">
+          <span class="stat-value" id="statTimed">0</span>
+          <span class="stat-label">عدد الأوقات المحددة</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-untimed"><i class="fa-solid fa-question"></i></div>
+        <div class="stat-info">
+          <span class="stat-value" id="statUntimed">0</span>
+          <span class="stat-label">عدد بدون وقت</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SEARCH & FILTERS ========== -->
+    <section class="panel control-panel" aria-labelledby="controlHeading">
+      <h2 id="controlHeading" class="sr-only">أدوات البحث والتصفية</h2>
+
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="ابحث بالمنطقة، الوقت، أو أي كلمة في التفاصيل..."
+          aria-label="بحث في الإعلانات"
+          autocomplete="off"
+        >
+        <button id="btnClearSearch" class="clear-search" aria-label="مسح البحث" hidden>
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="filters-row">
+        <div class="chip-group" id="chipGroup" role="group" aria-label="تصفية حسب الوقت">
+          <button class="chip active" data-filter="all">الكل</button>
+          <button class="chip" data-filter="morning"><i class="fa-solid fa-sun"></i> صباح</button>
+          <button class="chip" data-filter="afternoon"><i class="fa-solid fa-cloud-sun"></i> ظهر</button>
+          <button class="chip" data-filter="evening"><i class="fa-solid fa-moon"></i> مساء</button>
+          <button class="chip" data-filter="none"><i class="fa-solid fa-ban"></i> بدون وقت</button>
+        </div>
+
+        <label class="sort-control">
+          <span>ترتيب حسب:</span>
+          <select id="sortSelect" aria-label="ترتيب النتائج">
+            <option value="time">الوقت</option>
+            <option value="area">اسم المنطقة</option>
+            <option value="latest">الأحدث</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <!-- ========== RESULTS ========== -->
+    <section class="panel results-panel" aria-labelledby="resultsHeading">
+      <div class="panel-head">
+        <h2 id="resultsHeading"><i class="fa-solid fa-layer-group"></i> النتائج</h2>
+        <span class="hint" id="resultsCount"></span>
+      </div>
+
+      <div id="cardsContainer" class="cards-grid" aria-live="polite"></div>
+
+      <div id="emptyState" class="empty-state" hidden>
+        <i class="fa-regular fa-folder-open"></i>
+        <p>لا توجد نتائج بعد. الصق النص أعلاه واضغط "تحليل النص"</p>
+      </div>
+
+      <div id="noMatchState" class="empty-state" hidden>
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <p>لا توجد نتائج تطابق بحثك</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    <span>جدول أدوار المياه — يعمل بالكامل داخل متصفحك</span>
+  </footer>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="locationEngine.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
