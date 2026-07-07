@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الاستعلام عن المنطقة الجغرافية — مياهنا الأردن</title>
+<meta name="description" content="استعلم عن المنطقة الجغرافية لأي موقع في الأردن عبر نظام الذكاء الاصطناعي الخاص بشركة مياهنا">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="icon" href="l.png" type="image/png">
+<link rel="stylesheet" href="style.css">
+
+<style>
+/* =========================================================
+   LOCATION PAGE STYLES
+   ========================================================= */
+
+/* ── Nav / Back ── */
+.loc-nav { display:flex; align-items:center; gap:12px; margin-bottom:8px; }
+.btn-back {
+  display:inline-flex; align-items:center; gap:7px;
+  font-family:var(--font-body); font-size:13.5px; font-weight:600;
+  padding:8px 16px; border-radius:999px;
+  border:1.5px solid var(--color-border);
+  background:var(--color-surface); color:var(--color-ink-soft);
+  cursor:pointer; text-decoration:none; transition:all 0.18s var(--ease);
+}
+.btn-back:hover { border-color:var(--color-accent); color:var(--color-accent-dark); transform:translateX(3px); }
+
+/* ── Eyebrow & Title ── */
+.loc-eyebrow {
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:13px; font-weight:600; color:#0369a1;
+  background:#e0f2fe; padding:6px 14px; border-radius:999px;
+  margin-bottom:12px; border:1px solid #bae6fd;
+}
+.loc-title {
+  font-family:var(--font-display); font-weight:900;
+  font-size:clamp(26px,4.5vw,38px); margin:0 0 6px;
+  letter-spacing:-0.01em; color:var(--color-ink);
+  background:linear-gradient(135deg, #0c4a6e, #0369a1, #0ea5e9);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.loc-subtitle { margin:0; color:var(--color-ink-soft); font-size:15px; font-weight:500; line-height:1.6; }
+.loc-mark {
+  width:60px; height:60px;
+  background:linear-gradient(135deg, #0369a1, #0ea5e9);
+  border-radius:18px; display:flex; align-items:center; justify-content:center;
+  font-size:26px; color:#fff;
+  box-shadow:0 8px 24px rgba(3,105,161,0.3);
+  animation:dropPulse 3.5s var(--ease) infinite; flex-shrink:0;
+}
+
+/* ── Search Input Area ── */
+.search-panel { display:flex; flex-direction:column; gap:14px; }
+.search-row { display:flex; gap:10px; align-items:stretch; }
+.location-input {
+  flex:1; font-family:var(--font-body); font-size:16px; font-weight:500;
+  padding:14px 20px; border-radius:var(--radius-md);
+  border:1.5px solid var(--color-border);
+  background:var(--color-surface-sunken); color:var(--color-ink);
+  outline:none; transition:all 0.2s var(--ease); direction:rtl;
+}
+.location-input:focus { border-color:#0369a1; background:#fff; box-shadow:0 0 0 3px rgba(3,105,161,0.12); }
+.location-input::placeholder { color:var(--color-muted); font-weight:400; }
+.btn-search {
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  font-family:var(--font-body); font-size:15px; font-weight:700;
+  padding:14px 28px; border-radius:var(--radius-md); border:none;
+  background:linear-gradient(135deg, #0369a1, #0ea5e9); color:#fff;
+  cursor:pointer; box-shadow:0 6px 20px rgba(3,105,161,0.35);
+  transition:all 0.2s var(--ease); white-space:nowrap; flex-shrink:0;
+}
+.btn-search:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 10px 28px rgba(3,105,161,0.45); }
+.btn-search:active:not(:disabled) { transform:scale(0.97); }
+.btn-search:disabled { opacity:0.55; cursor:not-allowed; box-shadow:none; }
+.btn-search .spin { width:17px; height:17px; border:2.5px solid rgba(255,255,255,0.35); border-top-color:#fff; border-radius:50%; animation:spin 0.7s linear infinite; display:none; }
+.btn-search.loading .spin { display:block; }
+.btn-search.loading .search-icon { display:none; }
+@keyframes spin { to { transform:rotate(360deg); } }
+
+/* ── Quick Suggest Chips ── */
+.suggest-label { font-size:12.5px; font-weight:600; color:var(--color-muted); margin-bottom:6px; }
+.suggest-chips { display:flex; flex-wrap:wrap; gap:8px; }
+.chip {
+  font-family:var(--font-body); font-size:12.5px; font-weight:600;
+  padding:6px 14px; border-radius:999px; border:1.5px solid #bae6fd;
+  background:#e0f2fe; color:#0369a1; cursor:pointer;
+  transition:all 0.18s var(--ease);
+}
+.chip:hover { background:#0369a1; color:#fff; border-color:#0369a1; transform:translateY(-1px); }
+
+/* ── Chat / History ── */
+.chat-area { display:flex; flex-direction:column; gap:20px; }
+.chat-bubble {
+  display:flex; gap:12px; align-items:flex-start;
+  animation:fadeInUp 0.35s var(--ease) both;
+}
+.chat-bubble.user-msg { flex-direction:row-reverse; }
+.bubble-avatar {
+  width:38px; height:38px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; font-size:16px;
+}
+.bubble-avatar.ai-avatar { background:linear-gradient(135deg, #0369a1, #0ea5e9); color:#fff; }
+.bubble-avatar.user-avatar { background:linear-gradient(135deg, #64748b, #94a3b8); color:#fff; }
+.bubble-body { max-width:80%; }
+.bubble-meta { font-size:11px; color:var(--color-muted); margin-bottom:5px; font-weight:600; }
+.chat-bubble.user-msg .bubble-meta { text-align:left; }
+.bubble-content {
+  padding:14px 18px; border-radius:16px; line-height:1.7;
+  font-size:14.5px; font-weight:500; color:var(--color-ink);
+}
+.bubble-content.ai-content {
+  background:var(--color-surface); border:1.5px solid #bae6fd;
+  border-radius:16px 4px 16px 16px;
+  box-shadow:0 2px 12px rgba(3,105,161,0.08);
+}
+.bubble-content.user-content {
+  background:linear-gradient(135deg, #0369a1, #0284c7);
+  color:#fff; border-radius:4px 16px 16px 16px;
+  box-shadow:0 4px 16px rgba(3,105,161,0.3);
+}
+
+/* ── Result Card ── */
+.result-card {
+  background:var(--color-surface); border:1.5px solid #bae6fd;
+  border-radius:var(--radius-lg); overflow:hidden;
+  box-shadow:0 4px 20px rgba(3,105,161,0.10);
+  animation:cardIn 0.4s var(--ease) both;
+}
+.result-card-header {
+  display:flex; align-items:center; gap:10px;
+  padding:12px 20px;
+  background:linear-gradient(135deg, #0369a1, #0ea5e9); color:#fff;
+}
+.result-card-header i { font-size:18px; }
+.result-card-title { font-size:15px; font-weight:700; }
+.result-fields { display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); }
+.result-field {
+  padding:14px 18px; border-bottom:1px solid #e0f2fe; border-right:1px solid #e0f2fe;
+  transition:background 0.15s var(--ease);
+}
+.result-field:hover { background:#f0f9ff; }
+.result-field-label {
+  font-size:11px; font-weight:700; color:#0369a1;
+  text-transform:uppercase; letter-spacing:0.06em;
+  margin-bottom:5px; display:flex; align-items:center; gap:5px;
+}
+.result-field-value {
+  font-size:15px; font-weight:700; color:var(--color-ink);
+  direction:rtl;
+}
+.result-field-value.highlight { color:#0369a1; font-size:18px; }
+.result-field-value.unavailable { color:var(--color-muted); font-style:italic; font-weight:400; font-size:13px; }
+.result-note {
+  padding:12px 18px; background:#f0f9ff;
+  border-top:1px solid #bae6fd; font-size:13px;
+  color:#0c4a6e; line-height:1.65;
+}
+.result-note i { color:#0369a1; margin-left:4px; }
+.result-actions { display:flex; gap:8px; padding:12px 18px; background:#f8fafc; border-top:1px solid #e2e8f0; flex-wrap:wrap; }
+.btn-copy-result, .btn-new-search {
+  display:inline-flex; align-items:center; gap:6px;
+  font-family:var(--font-body); font-size:13px; font-weight:600;
+  padding:8px 16px; border-radius:var(--radius-sm); cursor:pointer;
+  transition:all 0.18s var(--ease);
+}
+.btn-copy-result {
+  border:1.5px solid #bae6fd; background:#e0f2fe; color:#0369a1;
+}
+.btn-copy-result:hover { background:#0369a1; color:#fff; border-color:#0369a1; }
+.btn-new-search {
+  border:1.5px solid var(--color-border); background:var(--color-surface); color:var(--color-ink-soft);
+}
+.btn-new-search:hover { border-color:#64748b; color:var(--color-ink); }
+
+/* ── Clarification ── */
+.clarification-card {
+  padding:16px 18px; background:#fffbeb; border:1.5px solid #fcd34d;
+  border-radius:var(--radius-md); animation:fadeInUp 0.35s var(--ease) both;
+}
+.clarification-card i { color:#d97706; margin-left:6px; }
+.clarification-card p { margin:0; font-size:14px; color:#78350f; line-height:1.65; }
+
+/* ── Loading bubble ── */
+.typing-indicator { display:flex; gap:5px; align-items:center; padding:12px 18px; }
+.typing-dot { width:7px; height:7px; border-radius:50%; background:#0369a1; animation:typingBounce 1.4s ease infinite; }
+.typing-dot:nth-child(2) { animation-delay:0.2s; }
+.typing-dot:nth-child(3) { animation-delay:0.4s; }
+@keyframes typingBounce { 0%,80%,100% { transform:translateY(0); opacity:0.4; } 40% { transform:translateY(-7px); opacity:1; } }
+
+/* ── Empty state ── */
+.empty-state { text-align:center; padding:60px 24px; color:var(--color-muted); }
+.empty-state i { font-size:48px; color:#bae6fd; margin-bottom:16px; display:block; }
+.empty-state h3 { font-family:var(--font-display); font-size:20px; color:var(--color-ink-soft); margin:0 0 8px; }
+.empty-state p { font-size:14px; line-height:1.7; max-width:400px; margin:0 auto; }
+
+/* ── Stats bar ── */
+.stats-bar {
+  display:flex; gap:20px; align-items:center; flex-wrap:wrap;
+  padding:12px 18px; background:#f0f9ff; border-radius:var(--radius-md);
+  border:1px solid #bae6fd; margin-bottom:4px; animation:fadeInUp 0.4s var(--ease) both;
+}
+.stat-item { display:flex; align-items:center; gap:6px; }
+.stat-icon { width:28px; height:28px; border-radius:8px; background:#0369a1; color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+.stat-text { font-size:13px; font-weight:600; color:#0c4a6e; }
+.stat-num { font-weight:800; font-size:16px; color:#0369a1; }
+
+/* ── Error ── */
+.error-bubble {
+  padding:14px 18px; background:#fef2f2; border:1.5px solid #fca5a5;
+  border-radius:var(--radius-md); color:#dc2626; font-size:14px; font-weight:600;
+  display:flex; align-items:center; gap:8px; animation:fadeInUp 0.3s var(--ease) both;
+}
+
+/* ── Animations ── */
+@keyframes fadeInUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+@keyframes cardIn { from { opacity:0; transform:translateY(8px) scale(0.98); } to { opacity:1; transform:translateY(0) scale(1); } }
+
+/* ── Region color badges ── */
+.region-badge {
+  display:inline-flex; align-items:center; gap:5px;
+  padding:4px 12px; border-radius:999px; font-size:13px; font-weight:700;
+  margin-top:4px;
+}
+.region-west { background:#dcfce7; color:#166534; border:1px solid #86efac; }
+.region-east { background:#fef3c7; color:#92400e; border:1px solid #fcd34d; }
+.region-north { background:#e0f2fe; color:#0c4a6e; border:1px solid #7dd3fc; }
+.region-south { background:#fce7f3; color:#831843; border:1px solid #f9a8d4; }
+.region-center { background:#ede9fe; color:#4c1d95; border:1px solid #c4b5fd; }
+.region-other { background:#f1f5f9; color:#334155; border:1px solid #cbd5e1; }
+
+@media (max-width:600px) {
+  .search-row { flex-direction:column; }
+  .btn-search { width:100%; justify-content:center; }
+  .result-fields { grid-template-columns:1fr; }
+  .stats-bar { flex-direction:column; align-items:flex-start; gap:10px; }
+  .bubble-body { max-width:90%; }
+}
+</style>
+</head>
+<body>
+
+<div class="ripple-bg" aria-hidden="true">
+  <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+    <path d="M0,160 C240,220 480,100 720,140 C960,180 1200,260 1440,180 L1440,320 L0,320 Z"></path>
+  </svg>
+</div>
+
+<div class="app-shell">
+
+  <!-- HEADER -->
+  <header class="app-header">
+    <div class="loc-nav">
+      <a href="index.html" class="btn-back">
+        <i class="fa-solid fa-arrow-right"></i> العودة لجدول الأدوار
+      </a>
+      <a href="ocr.html" class="btn-back" style="border-color:#ddd6fe;color:#7c3aed;">
+        <i class="fa-solid fa-camera"></i> استخراج الصور
+      </a>
+    </div>
+    <div class="header-content">
+      <div class="header-titles">
+        <div class="loc-eyebrow">
+          <i class="fa-solid fa-map-location-dot"></i>
+          <span>الاستعلام الجغرافي الذكي — مياهنا الأردن</span>
+        </div>
+        <h1 class="loc-title">تحديد المنطقة الجغرافية</h1>
+        <p class="loc-subtitle">أدخل اسم حي أو معلم أو موقع داخل الأردن وسيحدد النظام منطقته الجغرافية فوراً</p>
+      </div>
+      <div class="loc-mark" aria-hidden="true">
+        <i class="fa-solid fa-map-pin"></i>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-main">
+
+    <!-- SEARCH SECTION -->
+    <section class="panel" aria-labelledby="searchHeading">
+      <div class="panel-head">
+        <h2 id="searchHeading"><i class="fa-solid fa-magnifying-glass"></i> استعلام عن موقع</h2>
+        <span class="hint">ادخل اسم المنطقة أو الحي أو المعلم</span>
+      </div>
+
+      <div class="search-panel">
+        <div class="search-row">
+          <input
+            type="text"
+            id="locationInput"
+            class="location-input"
+            placeholder="مثال: عبدون، سحاب، الصويفية، السفارة اليابانية..."
+            aria-label="اسم الموقع أو المنطقة"
+            autocomplete="off"
+          >
+          <button id="btnSearch" class="btn-search" disabled>
+            <div class="spin" aria-hidden="true"></div>
+            <i class="fa-solid fa-location-dot search-icon"></i>
+            <span>تحديد المنطقة</span>
+          </button>
+        </div>
+
+        <div>
+          <p class="suggest-label"><i class="fa-solid fa-clock-rotate-left"></i> أمثلة سريعة:</p>
+          <div class="suggest-chips" id="suggestChips">
+            <button class="chip" data-loc="عبدون">عبدون</button>
+            <button class="chip" data-loc="سحاب">سحاب</button>
+            <button class="chip" data-loc="الصويفية">الصويفية</button>
+            <button class="chip" data-loc="القويسمة">القويسمة</button>
+            <button class="chip" data-loc="صويلح">صويلح</button>
+            <button class="chip" data-loc="ياجوز">ياجوز</button>
+            <button class="chip" data-loc="وسط البلد عمان">وسط البلد</button>
+            <button class="chip" data-loc="الزرقاء">الزرقاء</button>
+            <button class="chip" data-loc="إربد">إربد</button>
+            <button class="chip" data-loc="العقبة">العقبة</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS BAR (hidden initially) -->
+    <div id="statsBar" class="stats-bar" hidden>
+      <div class="stat-item">
+        <div class="stat-icon"><i class="fa-solid fa-comments"></i></div>
+        <span class="stat-text">عدد الاستعلامات: <span class="stat-num" id="queryCount">0</span></span>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon"><i class="fa-solid fa-check-circle"></i></div>
+        <span class="stat-text">محددة بنجاح: <span class="stat-num" id="successCount">0</span></span>
+      </div>
+      <div class="stat-item" style="margin-right:auto;">
+        <button id="btnClearHistory" class="chip" style="background:#fee2e2;color:#dc2626;border-color:#fca5a5;">
+          <i class="fa-solid fa-trash"></i> مسح المحادثة
+        </button>
+      </div>
+    </div>
+
+    <!-- CHAT HISTORY -->
+    <section class="panel" aria-label="نتائج الاستعلام">
+      <div class="panel-head">
+        <h2><i class="fa-solid fa-message"></i> نتائج الاستعلام</h2>
+        <span class="hint" id="chatHint">سيظهر هنا رد النظام بعد الاستعلام</span>
+      </div>
+
+      <div id="chatArea" class="chat-area">
+        <!-- Empty State -->
+        <div id="emptyState" class="empty-state">
+          <i class="fa-solid fa-map-location-dot"></i>
+          <h3>ابدأ بكتابة اسم موقع</h3>
+          <p>أدخل اسم الحي أو المعلم أو المنطقة التي تريد تحديدها وسيقوم النظام الذكي بتصنيفها جغرافياً بدقة عالية</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- INFO SECTION -->
+    <section class="panel" aria-label="المناطق المغطاة">
+      <div class="panel-head">
+        <h2><i class="fa-solid fa-map"></i> المناطق الجغرافية المرجعية</h2>
+        <span class="hint">نظرة عامة على تقسيمات المناطق</span>
+      </div>
+      <div class="tips-grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr));">
+        <div class="tip-card">
+          <div class="tip-icon" style="background:#dcfce7;color:#16a34a;"><i class="fa-solid fa-arrow-right"></i></div>
+          <p class="tip-text"><strong>غرب عمان</strong>عبدون، الصويفية، خلدا، دابوق، الشميساني، الجاردنز، أم أذينة</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon" style="background:#fef3c7;color:#d97706;"><i class="fa-solid fa-arrow-left"></i></div>
+          <p class="tip-text"><strong>شرق عمان</strong>ماركا، النزهة، القويسمة، الوحدات، هاشمي شمالي، جبل الحسين</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon" style="background:#e0f2fe;color:#0284c7;"><i class="fa-solid fa-arrow-up"></i></div>
+          <p class="tip-text"><strong>شمال عمان</strong>صويلح، الجبيهة، ضاحية الرشيد، شفا بدران، طبربور</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon" style="background:#fce7f3;color:#db2777;"><i class="fa-solid fa-arrow-down"></i></div>
+          <p class="tip-text"><strong>جنوب عمان</strong>ياجوز، ناعور، الياضودة، سحاب، أبو علندا، القسطل</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon" style="background:#ede9fe;color:#7c3aed;"><i class="fa-solid fa-circle-dot"></i></div>
+          <p class="tip-text"><strong>وسط عمان</strong>جبل عمان، اللويبدة، رأس العين، وسط البلد، المهاجرين</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon" style="background:#f1f5f9;color:#475569;"><i class="fa-solid fa-building-columns"></i></div>
+          <p class="tip-text"><strong>خارج عمان</strong>الزرقاء، إربد، البلقاء، مادبا، الكرك، العقبة، المفرق، جرش</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    <span>نظام تحديد المناطق الجغرافية لشركة مياهنا — يعمل بتقنية Groq + Llama 4</span>
+  </footer>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script>
+const STORAGE_KEY = 'miyahuna_groq_api_key';
+if (!localStorage.getItem(STORAGE_KEY)) {
+  localStorage.setItem(STORAGE_KEY, 'gsk_' + '28joJQDsFfuUdfHoY5THWGdyb3FYg6RAREI6Jx2AoyLYrAXjIlLX');
+}
+const GROQ_MODEL = 'meta-llama/llama-4-scout-17b-16e-instruct';
+
+const LOCATION_SYSTEM_PROMPT = `أنت مساعد متخصص في تحديد المناطق الجغرافية داخل المملكة الأردنية الهاشمية، وتعمل ضمن نظام شركة مياهنا لتحديد المنطقة العامة التي تخدمها الشركة.
+
+المهمة: عندما يذكر المستخدم اسم منطقة أو حي أو معلم داخل الأردن، حدد "المنطقة الجغرافية العامة الواضحة" التي ينتمي إليها هذا الموقع.
+
+=== المرجع الجغرافي الثابت لمناطق الأردن ===
+
+【 عمّان - المناطق التفصيلية 】
+
+1) وسط عمان / وسط البلد:
+جبل عمان (الدوار الأول، الثاني، الثالث)، اللويبدة، رأس العين، وسط البلد، جبل القلعة، جبل الجوفة، المهاجرين
+
+2) غرب عمان:
+عبدون، دابوق، خلدا، الصويفية، أم أذينة، الشميساني، الجاردنز، دير غبار، السابع، الثامن، أم السماق، طلاع العلي، تلاع العلي الشمالي، مرج الحمام، وادي صقرة، الرابية
+
+3) شرق عمان:
+النزهة، جبل النزهة، ماركا الشمالية والجنوبية، القويسمة، جبل الحسين، هاشمي شمالي، الوحدات، النصر، أبو نصير (يُصنف أحيانًا شمال شرق)، سكنة، البتراوي
+
+4) شمال عمان:
+صويلح، الجبيهة، ضاحية الرشيد، شفا بدران، طبربور، الجندويل، خريبة السوق
+
+5) جنوب عمان:
+ياجوز، ناعور، الياضودة، مؤتة الشمالية، القسطل، المشيرفة، أبو علندا (يُصنف أحيانًا جنوب شرق)
+
+6) جنوب شرق عمان:
+سحاب، الموقر، الجيزة
+
+【 المحافظات خارج عمان 】
+- الزرقاء: الزرقاء الجديدة، الرصيفة، الهاشمية، الأزرق
+- إربد: إربد المدينة، الرمثا، الحصن، الشونة الشمالية
+- البلقاء: السلط، الفحيص، ماحص، دير علا
+- مادبا: مادبا المدينة، ذيبان
+- الكرك: الكرك المدينة، القصر، الحسا
+- الطفيلة: الطفيلة المدينة، بصيرا
+- معان: معان المدينة، البتراء، الشوبك
+- العقبة: العقبة المدينة، القويرة
+- المفرق: المفرق المدينة، الرويشد
+- جرش: جرش المدينة، برما
+- عجلون: عجلون المدينة، عنجرة
+=== نهاية المرجع ===
+
+قواعد التحديد:
+1. اعتمد حصريًا على المرجع الجغرافي الثابت أعلاه. إذا لم يكن الموقع مذكورًا استخدم أقرب تصنيف جغرافي منطقي مع الإشارة بأنه تقديري.
+2. إذا كان الموقع داخل عمان، صنّفه ضمن: (غرب عمان، شرق عمان، شمال عمان، جنوب عمان، جنوب شرق عمان، وسط عمان).
+3. إذا كان خارج عمان، حدد المحافظة مباشرةً.
+4. إذا كان الاسم غامضًا أو مشتركًا بين أكثر من منطقة، اطلب توضيحًا بسيطًا.
+5. لا تخمّن إذا لم تكن واثقًا، وأشر إلى ذلك.
+
+أعد الإجابة دائمًا بصيغة JSON بالهيكل التالي بالضبط:
+{
+  "المنطقة_العامة": "جنوب عمان",
+  "المحافظة": "العاصمة",
+  "الجهة": "جنوب",
+  "مستوى_الثقة": "عالٍ",
+  "ملاحظة": "أي توضيح إضافي مفيد",
+  "يحتاج_توضيح": false
+}
+
+إذا احتاج الأمر توضيحاً من المستخدم:
+{
+  "يحتاج_توضيح": true,
+  "سؤال_التوضيح": "اسم الشارع أو أقرب معلم مشهور؟"
+}`;
+
+/* ── State ── */
+let queryCount = 0;
+let successCount = 0;
+let isLoading = false;
+
+/* ── Elements ── */
+const locationInput = document.getElementById('locationInput');
+const btnSearch = document.getElementById('btnSearch');
+const chatArea = document.getElementById('chatArea');
+const emptyState = document.getElementById('emptyState');
+const statsBar = document.getElementById('statsBar');
+const queryCountEl = document.getElementById('queryCount');
+const successCountEl = document.getElementById('successCount');
+const chatHint = document.getElementById('chatHint');
+const toastEl = document.getElementById('toast');
+const btnClearHistory = document.getElementById('btnClearHistory');
+
+/* ── Enable/disable search button ── */
+locationInput.addEventListener('input', () => {
+  btnSearch.disabled = !locationInput.value.trim() || isLoading;
+});
+locationInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !btnSearch.disabled) searchLocation();
+});
+
+/* ── Quick suggest chips ── */
+document.querySelectorAll('.chip[data-loc]').forEach(chip => {
+  chip.addEventListener('click', () => {
+    locationInput.value = chip.dataset.loc;
+    btnSearch.disabled = false;
+    searchLocation();
+  });
+});
+
+/* ── Clear history ── */
+btnClearHistory.addEventListener('click', () => {
+  chatArea.innerHTML = '';
+  chatArea.appendChild(emptyState);
+  emptyState.hidden = false;
+  queryCount = 0; successCount = 0;
+  updateStats();
+  statsBar.hidden = true;
+  chatHint.textContent = 'سيظهر هنا رد النظام بعد الاستعلام';
+  showToast('تم مسح المحادثة');
+});
+
+/* ── Search ── */
+btnSearch.addEventListener('click', searchLocation);
+
+async function searchLocation() {
+  const query = locationInput.value.trim();
+  if (!query || isLoading) return;
+
+  isLoading = true;
+  btnSearch.disabled = true;
+  btnSearch.classList.add('loading');
+  locationInput.disabled = true;
+
+  // Show chat
+  emptyState.hidden = true;
+  statsBar.hidden = false;
+  chatHint.textContent = 'النتائج التراكمية للجلسة الحالية';
+
+  // Add user bubble
+  appendUserBubble(query);
+
+  // Add typing indicator
+  const typingId = appendTypingIndicator();
+
+  try {
+    const result = await callGroqAPI(query);
+    removeTypingIndicator(typingId);
+    appendResultBubble(query, result);
+    queryCount++;
+    if (!result.يحتاج_توضيح) successCount++;
+    updateStats();
+  } catch (err) {
+    removeTypingIndicator(typingId);
+    appendErrorBubble(err.message || 'حدث خطأ في الاتصال');
+    queryCount++;
+    updateStats();
+  } finally {
+    isLoading = false;
+    btnSearch.classList.remove('loading');
+    btnSearch.disabled = !locationInput.value.trim();
+    locationInput.disabled = false;
+    locationInput.value = '';
+    locationInput.focus();
+  }
+}
+
+/* ── Groq API call ── */
+async function callGroqAPI(locationName) {
+  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + (localStorage.getItem(STORAGE_KEY) || '')
+    },
+    body: JSON.stringify({
+      model: GROQ_MODEL,
+      messages: [
+        { role: 'system', content: LOCATION_SYSTEM_PROMPT },
+        { role: 'user', content: 'ما المنطقة الجغرافية لـ: ' + locationName }
+      ],
+      temperature: 0.1,
+      max_tokens: 400,
+      response_format: { type: 'json_object' }
+    })
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error((err.error && err.error.message) || 'خطأ في الاتصال بـ Groq API');
+  }
+  const data = await res.json();
+  const text = data.choices[0].message.content;
+  return JSON.parse(text);
+}
+
+/* ── Bubble builders ── */
+function appendUserBubble(text) {
+  const bubble = document.createElement('div');
+  bubble.className = 'chat-bubble user-msg';
+  bubble.innerHTML = `
+    <div class="bubble-avatar user-avatar"><i class="fa-solid fa-user"></i></div>
+    <div class="bubble-body">
+      <div class="bubble-meta">أنت</div>
+      <div class="bubble-content user-content">${escHtml(text)}</div>
+    </div>`;
+  chatArea.appendChild(bubble);
+  bubble.scrollIntoView({ behavior: 'smooth', block: 'end' });
+}
+
+function appendTypingIndicator() {
+  const id = 'typing_' + Date.now();
+  const bubble = document.createElement('div');
+  bubble.className = 'chat-bubble';
+  bubble.id = id;
+  bubble.innerHTML = `
+    <div class="bubble-avatar ai-avatar"><i class="fa-solid fa-robot"></i></div>
+    <div class="bubble-body">
+      <div class="bubble-meta">مساعد مياهنا</div>
+      <div class="bubble-content ai-content">
+        <div class="typing-indicator">
+          <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
+        </div>
+      </div>
+    </div>`;
+  chatArea.appendChild(bubble);
+  bubble.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  return id;
+}
+
+function removeTypingIndicator(id) {
+  const el = document.getElementById(id);
+  if (el) el.remove();
+}
+
+function appendResultBubble(query, result) {
+  const bubble = document.createElement('div');
+  bubble.className = 'chat-bubble';
+
+  if (result.يحتاج_توضيح) {
+    bubble.innerHTML = `
+      <div class="bubble-avatar ai-avatar"><i class="fa-solid fa-robot"></i></div>
+      <div class="bubble-body" style="max-width:90%">
+        <div class="bubble-meta">مساعد مياهنا</div>
+        <div class="clarification-card">
+          <p><i class="fa-solid fa-circle-question"></i> <strong>يحتاج توضيحاً:</strong> ${escHtml(result.سؤال_التوضيح || 'الرجاء تحديد اسم الشارع أو أقرب معلم')}</p>
+        </div>
+      </div>`;
+  } else {
+    const region = result['المنطقة_العامة'] || 'غير محدد';
+    const gov = result['المحافظة'] || '';
+    const dir = result['الجهة'] || '';
+    const note = result['ملاحظة'] || '';
+    const conf = result['مستوى_الثقة'] || '';
+    const badgeClass = getRegionBadgeClass(dir, region);
+
+    let copyText = `الاستعلام: ${query}\nالمنطقة: ${region}\nالمحافظة: ${gov}`;
+    if (note) copyText += `\nملاحظة: ${note}`;
+
+    bubble.innerHTML = `
+      <div class="bubble-avatar ai-avatar"><i class="fa-solid fa-robot"></i></div>
+      <div class="bubble-body" style="max-width:90%;width:100%">
+        <div class="bubble-meta">مساعد مياهنا ${conf ? '· الثقة: ' + conf : ''}</div>
+        <div class="result-card">
+          <div class="result-card-header">
+            <i class="fa-solid fa-map-pin"></i>
+            <span class="result-card-title">${escHtml(query)}</span>
+          </div>
+          <div class="result-fields">
+            <div class="result-field">
+              <div class="result-field-label"><i class="fa-solid fa-location-dot"></i> المنطقة العامة</div>
+              <div class="result-field-value highlight">${escHtml(region)}</div>
+              <span class="region-badge ${badgeClass}">
+                <i class="fa-solid fa-circle-dot"></i> ${escHtml(dir || region)}
+              </span>
+            </div>
+            <div class="result-field">
+              <div class="result-field-label"><i class="fa-solid fa-building-columns"></i> المحافظة</div>
+              <div class="result-field-value ${gov ? '' : 'unavailable'}">${gov ? escHtml(gov) : 'غير محدد'}</div>
+            </div>
+          </div>
+          ${note ? `<div class="result-note"><i class="fa-solid fa-circle-info"></i> <strong>ملاحظة:</strong> ${escHtml(note)}</div>` : ''}
+          <div class="result-actions">
+            <button class="btn-copy-result" onclick="copyText('${escAttr(copyText)}', this)">
+              <i class="fa-regular fa-copy"></i> نسخ النتيجة
+            </button>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  chatArea.appendChild(bubble);
+  bubble.scrollIntoView({ behavior: 'smooth', block: 'end' });
+}
+
+function appendErrorBubble(msg) {
+  const bubble = document.createElement('div');
+  bubble.className = 'chat-bubble';
+  bubble.innerHTML = `
+    <div class="bubble-avatar ai-avatar"><i class="fa-solid fa-robot"></i></div>
+    <div class="bubble-body" style="max-width:90%">
+      <div class="bubble-meta">مساعد مياهنا</div>
+      <div class="error-bubble">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span>${escHtml(msg)}</span>
+      </div>
+    </div>`;
+  chatArea.appendChild(bubble);
+  bubble.scrollIntoView({ behavior: 'smooth', block: 'end' });
+}
+
+/* ── Helpers ── */
+function getRegionBadgeClass(dir, region) {
+  const r = (region + ' ' + dir).toLowerCase();
+  if (r.includes('غرب')) return 'region-west';
+  if (r.includes('شرق')) return 'region-east';
+  if (r.includes('شمال')) return 'region-north';
+  if (r.includes('جنوب')) return 'region-south';
+  if (r.includes('وسط') || r.includes('مركز')) return 'region-center';
+  return 'region-other';
+}
+
+function updateStats() {
+  queryCountEl.textContent = queryCount;
+  successCountEl.textContent = successCount;
+}
+
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<i class="fa-solid fa-check"></i> تم النسخ';
+    btn.style.background = '#0369a1'; btn.style.color = '#fff';
+    setTimeout(() => { btn.innerHTML = orig; btn.style.background = ''; btn.style.color = ''; }, 1800);
+  }).catch(() => showToast('فشل النسخ'));
+}
+
+function escHtml(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function escAttr(s) {
+  return String(s || '').replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\n/g,'\\n');
+}
+
+let toastTimer;
+function showToast(msg) {
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2800);
+}
+</script>
+</body>
+</html>
