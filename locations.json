@@ -6,810 +6,3152 @@
       "id": "amman",
       "name": "عمان",
       "type": "governorate",
-      "aliases": ["العاصمة", "أمان"]
+      "aliases": [
+        "العاصمة",
+        "أمان"
+      ]
     },
     {
       "id": "zarqa",
       "name": "الزرقاء",
       "type": "governorate",
-      "aliases": ["زرقاء"]
+      "aliases": [
+        "زرقاء"
+      ]
     },
     {
       "id": "irbid",
       "name": "إربد",
       "type": "governorate",
-      "aliases": ["اربد", "أربد"]
+      "aliases": [
+        "اربد",
+        "أربد"
+      ]
     },
     {
       "id": "mafraq",
       "name": "المفرق",
       "type": "governorate",
-      "aliases": ["مفرق"]
+      "aliases": [
+        "مفرق"
+      ]
     },
     {
       "id": "ajloun",
       "name": "عجلون",
       "type": "governorate",
-      "aliases": ["عجلون"]
+      "aliases": [
+        "عجلون"
+      ]
     },
     {
       "id": "jerash",
       "name": "جرش",
       "type": "governorate",
-      "aliases": ["جرش"]
+      "aliases": [
+        "جرش"
+      ]
     },
     {
       "id": "balqa",
       "name": "البلقاء",
       "type": "governorate",
-      "aliases": ["بلقاء", "السلط"]
+      "aliases": [
+        "بلقاء",
+        "السلط"
+      ]
     },
     {
       "id": "madaba",
       "name": "مادبا",
       "type": "governorate",
-      "aliases": ["ماداب", "مأدبا"]
+      "aliases": [
+        "ماداب",
+        "مأدبا"
+      ]
     },
     {
       "id": "karak",
       "name": "الكرك",
       "type": "governorate",
-      "aliases": ["كرك"]
+      "aliases": [
+        "كرك"
+      ]
     },
     {
       "id": "tafilah",
       "name": "الطفيلة",
       "type": "governorate",
-      "aliases": ["طفيلة", "طفيله"]
+      "aliases": [
+        "طفيلة",
+        "طفيله"
+      ]
     },
     {
       "id": "maan",
       "name": "معان",
       "type": "governorate",
-      "aliases": ["مان", "ماعن"]
+      "aliases": [
+        "مان",
+        "ماعن"
+      ]
     },
     {
       "id": "aqaba",
       "name": "العقبة",
       "type": "governorate",
-      "aliases": ["عقبة", "اقبه"]
+      "aliases": [
+        "عقبة",
+        "اقبه"
+      ]
     },
     {
       "id": "abdoun",
       "name": "عبدون",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["حي عبدون", "عبدون"]
+      "aliases": [
+        "حي عبدون",
+        "عبدون"
+      ]
     },
     {
       "id": "abdoun_south",
       "name": "عبدون الجنوبي",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["عبدون جنوبي", "جنوب عبدون"]
+      "aliases": [
+        "عبدون جنوبي",
+        "جنوب عبدون"
+      ]
     },
     {
       "id": "abdoun_north",
       "name": "عبدون الشمالي",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["عبدون شمالي", "شمال عبدون"]
+      "aliases": [
+        "عبدون شمالي",
+        "شمال عبدون"
+      ]
     },
     {
       "id": "deir_ghbar",
       "name": "دير غبار",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["دير غبار", "ديرغبار"]
+      "aliases": [
+        "دير غبار",
+        "ديرغبار"
+      ]
     },
     {
       "id": "jandaweel",
       "name": "الجندويل",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["جندويل", "الجندويل"]
+      "aliases": [
+        "جندويل",
+        "الجندويل"
+      ]
     },
     {
       "id": "jandaweel_low",
       "name": "الجندويل المنخفض",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["جندويل المنخفض", "الجندويل منخفض"]
+      "aliases": [
+        "جندويل المنخفض",
+        "الجندويل منخفض"
+      ]
     },
     {
       "id": "jandaweel_high",
       "name": "الجندويل المرتفع",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["جندويل المرتفع"]
+      "aliases": [
+        "جندويل المرتفع"
+      ]
     },
     {
       "id": "tla_ali",
       "name": "تلاع العلي",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["تلاع العلي", "تلاع علي"]
+      "aliases": [
+        "تلاع العلي",
+        "تلاع علي"
+      ]
     },
     {
       "id": "rabieh",
       "name": "الرابية",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["رابية"]
+      "aliases": [
+        "رابية"
+      ]
     },
     {
       "id": "sweifieh",
       "name": "الصويفية",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["صويفية", "الصويفيه"]
+      "aliases": [
+        "صويفية",
+        "الصويفيه"
+      ]
     },
     {
       "id": "dabouq",
       "name": "دابوق",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["داوق", "داابوق"]
+      "aliases": [
+        "داوق",
+        "داابوق"
+      ]
     },
     {
       "id": "abu_nsair",
       "name": "أبو نصير",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["ابونصير", "ابو نصير", "أبونصير", "ابو نصير الاسكان", "اسكان ابو نصير"]
+      "aliases": [
+        "ابونصير",
+        "ابو نصير",
+        "أبونصير",
+        "ابو نصير الاسكان",
+        "اسكان ابو نصير"
+      ]
     },
     {
       "id": "abu_nsair_old_housing",
       "name": "إسكان أبو نصير القديم",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["اسكان ابونصير القديم", "ابو نصير القديم", "الاسكان القديم ابو نصير"]
+      "aliases": [
+        "اسكان ابونصير القديم",
+        "ابو نصير القديم",
+        "الاسكان القديم ابو نصير"
+      ]
     },
     {
       "id": "shfabadran",
       "name": "شفابدران",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["شفا بدران", "شفا", "شفابدران"]
+      "aliases": [
+        "شفا بدران",
+        "شفا",
+        "شفابدران"
+      ]
     },
     {
       "id": "shfabadran_mraj",
       "name": "شفابدران مرج الفرس",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["شفا بدران مرج الفرس", "مرج الفرس شفابدران"]
+      "aliases": [
+        "شفا بدران مرج الفرس",
+        "مرج الفرس شفابدران"
+      ]
     },
     {
       "id": "shfabadran_rkhsa",
       "name": "شفابدران حي الترخيص",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["شفا بدران حي الترخيص", "حي الترخيص شفابدران"]
+      "aliases": [
+        "شفا بدران حي الترخيص",
+        "حي الترخيص شفابدران"
+      ]
     },
     {
       "id": "shfabadran_rafat",
       "name": "شفابدران شارع رفعت شموط",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["شارع رفعت شموط", "رفعت شموط"]
+      "aliases": [
+        "شارع رفعت شموط",
+        "رفعت شموط"
+      ]
     },
     {
       "id": "jubaiha",
       "name": "الجبيهة",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["جبيهة", "جبيهه", "الجبيهه"]
+      "aliases": [
+        "جبيهة",
+        "جبيهه",
+        "الجبيهه"
+      ]
     },
     {
       "id": "jubaiha_mansour",
       "name": "جبيهة حي المنصور",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["الجبيهة حي المنصور", "جبيهه حي المنصور", "حي المنصور جبيهة"]
+      "aliases": [
+        "الجبيهة حي المنصور",
+        "جبيهه حي المنصور",
+        "حي المنصور جبيهة"
+      ]
     },
     {
       "id": "jubaiha_rayan",
       "name": "جبيهة حي الريان",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["الجبيهة حي الريان", "جبيهه حي الريان", "حي الريان جبيهة"]
+      "aliases": [
+        "الجبيهة حي الريان",
+        "جبيهه حي الريان",
+        "حي الريان جبيهة"
+      ]
     },
     {
       "id": "khalda",
       "name": "خلدا",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["خلده"]
+      "aliases": [
+        "خلده"
+      ]
     },
     {
       "id": "mraj_hamam",
       "name": "مرج الحمام",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["مرج حمام"]
+      "aliases": [
+        "مرج حمام"
+      ]
     },
     {
       "id": "mraj_fras",
       "name": "مرج الفرس",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["مرج فرس", "المرج"]
+      "aliases": [
+        "مرج فرس",
+        "المرج"
+      ]
     },
     {
       "id": "prince_rashid",
       "name": "ضاحية الأمير راشد",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["ضاحية الامير راشد", "أمير راشد"]
+      "aliases": [
+        "ضاحية الامير راشد",
+        "أمير راشد"
+      ]
     },
     {
       "id": "rashid_suburb",
       "name": "ضاحية الرشيد",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["الرشيد", "ضاحية رشيد"]
+      "aliases": [
+        "الرشيد",
+        "ضاحية رشيد"
+      ]
     },
     {
       "id": "seventh_circle",
       "name": "الدوار السابع",
       "type": "landmark",
       "parent": "amman",
-      "aliases": ["دوار السابع", "الدوار 7"]
+      "aliases": [
+        "دوار السابع",
+        "الدوار 7"
+      ]
     },
     {
       "id": "eighth_circle",
       "name": "الدوار الثامن",
       "type": "landmark",
       "parent": "amman",
-      "aliases": ["دوار الثامن", "الدوار 8"]
+      "aliases": [
+        "دوار الثامن",
+        "الدوار 8"
+      ]
     },
     {
       "id": "tabarbour",
       "name": "طبربور",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["طبربور"]
+      "aliases": [
+        "طبربور"
+      ]
     },
     {
       "id": "tariq",
       "name": "طارق",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["حي طارق"]
+      "aliases": [
+        "حي طارق"
+      ]
     },
     {
       "id": "marka",
       "name": "ماركا",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["ماركا", "مارقا"]
+      "aliases": [
+        "ماركا",
+        "مارقا"
+      ]
     },
     {
       "id": "marka_north",
       "name": "ماركا الشمالية",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["ماركا شمالية", "شمال ماركا"]
+      "aliases": [
+        "ماركا شمالية",
+        "شمال ماركا"
+      ]
     },
     {
       "id": "marka_south",
       "name": "ماركا الجنوبية",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["ماركا جنوبية", "جنوب ماركا"]
+      "aliases": [
+        "ماركا جنوبية",
+        "جنوب ماركا"
+      ]
     },
     {
       "id": "qwismeh",
       "name": "القويسمة",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["قويسمة", "القويسمه", "قويسمه"]
+      "aliases": [
+        "قويسمة",
+        "القويسمه",
+        "قويسمه"
+      ]
     },
     {
       "id": "hai_nzal",
       "name": "حي نزال",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["نزال", "حي نزال"]
+      "aliases": [
+        "نزال",
+        "حي نزال"
+      ]
     },
     {
       "id": "ashrafieh",
       "name": "الأشرفية",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["أشرفية", "اشرفية"]
+      "aliases": [
+        "أشرفية",
+        "اشرفية"
+      ]
     },
     {
       "id": "hussein_mountain",
       "name": "جبل الحسين",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["جبل حسين"]
+      "aliases": [
+        "جبل حسين"
+      ]
     },
     {
       "id": "lweibdeh",
       "name": "جبل اللويبدة",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["اللويبدة", "لويبدة"]
+      "aliases": [
+        "اللويبدة",
+        "لويبدة"
+      ]
     },
     {
       "id": "jabal_amman",
       "name": "جبل عمان",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["جبل عمان"]
+      "aliases": [
+        "جبل عمان"
+      ]
     },
     {
       "id": "abdali",
       "name": "العبدلي",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["عبدلي", "العبدلي"]
+      "aliases": [
+        "عبدلي",
+        "العبدلي"
+      ]
     },
     {
       "id": "sports_city",
       "name": "المدينة الرياضية",
       "type": "landmark",
       "parent": "amman",
-      "aliases": ["مدينة رياضية"]
+      "aliases": [
+        "مدينة رياضية"
+      ]
     },
     {
       "id": "shmeisani",
       "name": "الشميساني",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["شميساني"]
+      "aliases": [
+        "شميساني"
+      ]
     },
     {
       "id": "kursi",
       "name": "الكرسي",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["كرسي"]
+      "aliases": [
+        "كرسي"
+      ]
     },
     {
       "id": "kursi_high",
       "name": "الكرسي المرتفع",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["كرسي المرتفع", "الكرسي مرتفع"]
+      "aliases": [
+        "كرسي المرتفع",
+        "الكرسي مرتفع"
+      ]
     },
     {
       "id": "kursi_low",
       "name": "الكرسي المنخفض",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["كرسي المنخفض"]
+      "aliases": [
+        "كرسي المنخفض"
+      ]
     },
     {
       "id": "wadi_sir",
       "name": "وادي السير",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["وادي سير"]
+      "aliases": [
+        "وادي سير"
+      ]
     },
     {
       "id": "buniyet",
       "name": "البنيات",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["بنيات"]
+      "aliases": [
+        "بنيات"
+      ]
     },
     {
       "id": "naour",
       "name": "ناعور",
       "type": "city",
       "parent": "amman",
-      "aliases": ["ناعور"]
+      "aliases": [
+        "ناعور"
+      ]
     },
     {
       "id": "hesban",
       "name": "حسبان",
       "type": "city",
       "parent": "amman",
-      "aliases": ["حسبان"]
-    },
-    {
-      "id": "yajuz",
-      "name": "اليادودة",
-      "type": "neighborhood",
-      "parent": "amman",
-      "aliases": ["يادودة"]
+      "aliases": [
+        "حسبان"
+      ]
     },
     {
       "id": "umm_smaaq",
       "name": "أم السماق",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["ام السماق", "أم سماق", "ام سماق"]
+      "aliases": [
+        "ام السماق",
+        "أم سماق",
+        "ام سماق"
+      ]
     },
     {
       "id": "umm_uzaina",
       "name": "أم أذينة",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["ام أذينة", "ام اذينة", "أم اذينة"]
+      "aliases": [
+        "ام أذينة",
+        "ام اذينة",
+        "أم اذينة"
+      ]
     },
     {
       "id": "abu_alanda",
       "name": "أبو علندا",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["ابو علندا"]
+      "aliases": [
+        "ابو علندا"
+      ]
     },
     {
       "id": "khreibet_souq",
       "name": "خريبة السوق",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["خريبة سوق"]
+      "aliases": [
+        "خريبة سوق"
+      ]
     },
     {
       "id": "zuhor",
       "name": "الزهور",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["زهور", "الزهور"]
+      "aliases": [
+        "زهور",
+        "الزهور"
+      ]
     },
     {
       "id": "muqabaleen",
       "name": "المقابلين",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["مقابلين"]
+      "aliases": [
+        "مقابلين"
+      ]
     },
     {
       "id": "yasmin",
       "name": "الياسمين",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["ياسمين"]
+      "aliases": [
+        "ياسمين"
+      ]
     },
     {
       "id": "yasmin_suburb",
       "name": "ضاحية الياسمين",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["ضاحية ياسمين"]
+      "aliases": [
+        "ضاحية ياسمين"
+      ]
     },
     {
       "id": "nakheel_suburb",
       "name": "ضاحية النخيل",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["ضاحية نخيل", "النخيل"]
+      "aliases": [
+        "ضاحية نخيل",
+        "النخيل"
+      ]
     },
     {
       "id": "mansour",
       "name": "حي المنصور",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["المنصور", "منصور"]
+      "aliases": [
+        "المنصور",
+        "منصور"
+      ]
     },
     {
       "id": "rayan",
       "name": "حي الريان",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["الريان", "ريان"]
+      "aliases": [
+        "الريان",
+        "ريان"
+      ]
     },
     {
       "id": "trkhees",
       "name": "حي الترخيص",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["الترخيص", "ترخيص"]
+      "aliases": [
+        "الترخيص",
+        "ترخيص"
+      ]
     },
     {
       "id": "jawa",
       "name": "جاوا",
       "type": "city",
       "parent": "amman",
-      "aliases": ["جاوا", "جاواء"]
+      "aliases": [
+        "جاوا",
+        "جاواء"
+      ]
     },
     {
       "id": "akhdar",
       "name": "الأخضر",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["اخضر", "الأخضر", "حي الأخضر"]
+      "aliases": [
+        "اخضر",
+        "الأخضر",
+        "حي الأخضر"
+      ]
     },
     {
       "id": "manara",
       "name": "المنارة",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["منارة", "المنارة"]
+      "aliases": [
+        "منارة",
+        "المنارة"
+      ]
     },
     {
       "id": "alkoom",
       "name": "الكوم",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["كوم"]
+      "aliases": [
+        "كوم"
+      ]
     },
     {
       "id": "alkoom_darak",
       "name": "الكوم ما حول مديرية الدرك",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["الكوم حول الدرك", "الكوم الدرك", "كوم الدرك"]
+      "aliases": [
+        "الكوم حول الدرك",
+        "الكوم الدرك",
+        "كوم الدرك"
+      ]
     },
     {
       "id": "aqsa_suburb",
       "name": "ضاحية الأقصى",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["ضاحية الاقصى", "الأقصى", "ضاحية أقصى"]
+      "aliases": [
+        "ضاحية الاقصى",
+        "الأقصى",
+        "ضاحية أقصى"
+      ]
     },
     {
       "id": "mouj_hamam",
       "name": "موج الحمام",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["مرج الحمام", "موج حمام"]
+      "aliases": [
+        "مرج الحمام",
+        "موج حمام"
+      ]
     },
     {
       "id": "umm_nwara",
       "name": "أم نوارة",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["ام نوارة", "أم نواره", "ام نواره"]
+      "aliases": [
+        "ام نوارة",
+        "أم نواره",
+        "ام نواره"
+      ]
     },
     {
       "id": "alkumiya",
       "name": "العلكومية",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["علكومية", "العلكوميه"]
+      "aliases": [
+        "علكومية",
+        "العلكوميه"
+      ]
     },
     {
       "id": "jweida",
       "name": "الجويدة",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["جويدة", "الجويده"]
+      "aliases": [
+        "جويدة",
+        "الجويده"
+      ]
     },
     {
       "id": "tab_kraa",
       "name": "طاب كراع",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["طاب كراع"]
+      "aliases": [
+        "طاب كراع"
+      ]
     },
     {
       "id": "shooting_club",
       "name": "نادي الرماية",
       "type": "landmark",
       "parent": "amman",
-      "aliases": ["نادي الرماية"]
+      "aliases": [
+        "نادي الرماية"
+      ]
     },
     {
       "id": "maeen_road",
       "name": "طريق ماعين",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["ماعين", "طريق معين"]
+      "aliases": [
+        "ماعين",
+        "طريق معين"
+      ]
     },
     {
       "id": "hanayna",
       "name": "حنينا الانسيابي",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["حنينا", "الانسيابي"]
+      "aliases": [
+        "حنينا",
+        "الانسيابي"
+      ]
     },
     {
       "id": "jaloul",
       "name": "جلول",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["جلول"]
+      "aliases": [
+        "جلول"
+      ]
     },
     {
       "id": "feiha",
       "name": "الفيحاء",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["فيحاء"]
+      "aliases": [
+        "فيحاء"
+      ]
     },
     {
       "id": "zarqa_city",
       "name": "مدينة الزرقاء",
       "type": "city",
       "parent": "zarqa",
-      "aliases": ["الزرقاء", "زرقاء"]
+      "aliases": [
+        "الزرقاء",
+        "زرقاء"
+      ]
     },
     {
       "id": "rusaifa",
       "name": "الرصيفة",
       "type": "city",
       "parent": "zarqa",
-      "aliases": ["رصيفة"]
+      "aliases": [
+        "رصيفة"
+      ]
     },
     {
       "id": "zarqa_new",
       "name": "الزرقاء الجديدة",
       "type": "neighborhood",
       "parent": "zarqa",
-      "aliases": ["زرقاء جديدة"]
+      "aliases": [
+        "زرقاء جديدة"
+      ]
     },
     {
       "id": "irbid_city",
       "name": "مدينة إربد",
       "type": "city",
       "parent": "irbid",
-      "aliases": ["إربد", "اربد"]
+      "aliases": [
+        "إربد",
+        "اربد"
+      ]
     },
     {
       "id": "ramtha",
       "name": "الرمثا",
       "type": "city",
       "parent": "irbid",
-      "aliases": ["رمثا"]
+      "aliases": [
+        "رمثا"
+      ]
     },
     {
       "id": "mafraq_city",
       "name": "مدينة المفرق",
       "type": "city",
       "parent": "mafraq",
-      "aliases": ["المفرق", "مفرق"]
+      "aliases": [
+        "المفرق",
+        "مفرق"
+      ]
     },
     {
       "id": "ajloun_city",
       "name": "مدينة عجلون",
       "type": "city",
       "parent": "ajloun",
-      "aliases": ["عجلون"]
+      "aliases": [
+        "عجلون"
+      ]
     },
     {
       "id": "jerash_city",
       "name": "مدينة جرش",
       "type": "city",
       "parent": "jerash",
-      "aliases": ["جرش"]
+      "aliases": [
+        "جرش"
+      ]
     },
     {
       "id": "salt",
       "name": "السلط",
       "type": "city",
       "parent": "balqa",
-      "aliases": ["سلط"]
+      "aliases": [
+        "سلط"
+      ]
     },
     {
       "id": "madaba_city",
       "name": "مدينة مادبا",
       "type": "city",
       "parent": "madaba",
-      "aliases": ["مادبا", "مأدبا"]
+      "aliases": [
+        "مادبا",
+        "مأدبا"
+      ]
     },
     {
       "id": "karak_city",
       "name": "مدينة الكرك",
       "type": "city",
       "parent": "karak",
-      "aliases": ["الكرك", "كرك"]
+      "aliases": [
+        "الكرك",
+        "كرك"
+      ]
     },
     {
       "id": "tafilah_city",
       "name": "مدينة الطفيلة",
       "type": "city",
       "parent": "tafilah",
-      "aliases": ["الطفيلة", "طفيلة"]
+      "aliases": [
+        "الطفيلة",
+        "طفيلة"
+      ]
     },
     {
       "id": "maan_city",
       "name": "مدينة معان",
       "type": "city",
       "parent": "maan",
-      "aliases": ["معان"]
+      "aliases": [
+        "معان"
+      ]
     },
     {
       "id": "aqaba_city",
       "name": "مدينة العقبة",
       "type": "city",
       "parent": "aqaba",
-      "aliases": ["العقبة", "عقبة"]
+      "aliases": [
+        "العقبة",
+        "عقبة"
+      ]
     },
-
     {
       "id": "ain_basha",
       "name": "عين الباشا",
       "type": "district",
       "parent": "amman",
-      "aliases": ["عين باشا", "لواء عين الباشا", "لواء عين باشا"]
+      "aliases": [
+        "عين باشا",
+        "لواء عين الباشا",
+        "لواء عين باشا"
+      ]
     },
     {
       "id": "ain_basha_urban_dev",
       "name": "التطوير الحضري",
       "type": "neighborhood",
       "parent": "ain_basha",
-      "aliases": ["التطوير الحضري عين الباشا", "حي التطوير الحضري", "التطوير"]
+      "aliases": [
+        "التطوير الحضري عين الباشا",
+        "حي التطوير الحضري",
+        "التطوير"
+      ]
     },
     {
       "id": "ain_basha_iskan_qaqish",
       "name": "اسكان قاقيش",
       "type": "housing",
       "parent": "ain_basha",
-      "aliases": ["إسكان قاقيش", "قاقيش", "سكن قاقيش"]
+      "aliases": [
+        "إسكان قاقيش",
+        "قاقيش",
+        "سكن قاقيش"
+      ]
     },
     {
       "id": "ain_basha_abu_rawwa",
       "name": "ابو رواع",
       "type": "neighborhood",
       "parent": "ain_basha",
-      "aliases": ["أبو رواع", "ابو رواع عين الباشا"]
+      "aliases": [
+        "أبو رواع",
+        "ابو رواع عين الباشا"
+      ]
     },
     {
       "id": "ain_basha_umm_safatin",
       "name": "ام صفاتين",
       "type": "neighborhood",
       "parent": "ain_basha",
-      "aliases": ["أم صفاتين", "ام الصفاتين", "صفاتين"]
+      "aliases": [
+        "أم صفاتين",
+        "ام الصفاتين",
+        "صفاتين"
+      ]
     },
     {
       "id": "ain_basha_prince_ali",
       "name": "حي الامير علي",
       "type": "neighborhood",
       "parent": "ain_basha",
-      "aliases": ["حي الأمير علي", "الامير علي", "الأمير علي", "التدريب المهني", "حي الامير علي التدريب المهني"]
+      "aliases": [
+        "حي الأمير علي",
+        "الامير علي",
+        "الأمير علي",
+        "التدريب المهني",
+        "حي الامير علي التدريب المهني"
+      ]
     },
     {
       "id": "ain_basha_umm_aliqah",
       "name": "ام عليقة",
       "type": "neighborhood",
       "parent": "ain_basha",
-      "aliases": ["أم عليقة", "ام العليقة", "باب عمان", "ام عليقة باب عمان"]
+      "aliases": [
+        "أم عليقة",
+        "ام العليقة",
+        "باب عمان",
+        "ام عليقة باب عمان"
+      ]
     },
     {
       "id": "ain_basha_mobas",
       "name": "موبص",
       "type": "neighborhood",
       "parent": "ain_basha",
-      "aliases": ["موبص السفلي", "السفلي عين الباشا", "موبص سفلي"]
+      "aliases": [
+        "موبص السفلي",
+        "السفلي عين الباشا",
+        "موبص سفلي"
+      ]
     },
-
     {
       "id": "sulayhi",
       "name": "السليحي",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["سليحي", "السليحي الشرقي", "الحي الشرقي السليحي"]
+      "aliases": [
+        "سليحي",
+        "السليحي الشرقي",
+        "الحي الشرقي السليحي"
+      ]
     },
     {
       "id": "juaydidat",
       "name": "الجعيديدة",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["جعيديدة", "الجعيديده", "الجعيديدة الشرقي", "الجعيديدة الغربي", "الجعيديدة الشرقي والغربي"]
+      "aliases": [
+        "جعيديدة",
+        "الجعيديده",
+        "الجعيديدة الشرقي",
+        "الجعيديدة الغربي",
+        "الجعيديدة الشرقي والغربي"
+      ]
     },
     {
       "id": "hanw",
       "name": "الحنو",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["حنو", "الحنو العالي", "العالي الحنو", "ابو سامي العدوان", "الحنو ابو سامي العدوان"]
+      "aliases": [
+        "حنو",
+        "الحنو العالي",
+        "العالي الحنو",
+        "ابو سامي العدوان",
+        "الحنو ابو سامي العدوان"
+      ]
     },
     {
       "id": "rumman",
       "name": "الرمان",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["رمان", "حي الزعبية", "الرمان الزعبية", "شارع الاستخبارات", "الرمان شارع الاستخبارات"]
+      "aliases": [
+        "رمان",
+        "حي الزعبية",
+        "الرمان الزعبية",
+        "شارع الاستخبارات",
+        "الرمان شارع الاستخبارات"
+      ]
     },
     {
       "id": "baqa",
       "name": "البقعة",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["بقعة", "مخيم البقعة", "البقعه"]
+      "aliases": [
+        "بقعة",
+        "مخيم البقعة",
+        "البقعه"
+      ]
     },
     {
       "id": "baqa_nablus",
       "name": "نابلس البقعة",
       "type": "neighborhood",
       "parent": "amman",
-      "aliases": ["نابلس", "منطقة نابلس", "البقعة نابلس"]
+      "aliases": [
+        "نابلس",
+        "منطقة نابلس",
+        "البقعة نابلس"
+      ]
+    },
+    {
+      "id": "center_country",
+      "name": "وسط البلد",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "وسط البلد",
+        "البلد",
+        "وسط البلد عمان"
+      ]
+    },
+    {
+      "id": "jabal_al_qalaa",
+      "name": "جبل القلعة",
+      "type": "landmark",
+      "parent": "amman",
+      "aliases": [
+        "جبل القلعة",
+        "القلعة",
+        "قلعة عمان"
+      ]
+    },
+    {
+      "id": "roman_theater",
+      "name": "المدرج الروماني",
+      "type": "landmark",
+      "parent": "amman",
+      "aliases": [
+        "المدرج الروماني",
+        "المدرج",
+        "مدرج الروماني"
+      ]
+    },
+    {
+      "id": "ras_al_ein",
+      "name": "رأس العين",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "رأس العين",
+        "راس العين"
+      ]
+    },
+    {
+      "id": "first_circle",
+      "name": "الدوار الأول",
+      "type": "landmark",
+      "parent": "amman",
+      "aliases": [
+        "الدوار الأول",
+        "دوار الأول",
+        "الدوار 1"
+      ]
+    },
+    {
+      "id": "second_circle",
+      "name": "الدوار الثاني",
+      "type": "landmark",
+      "parent": "amman",
+      "aliases": [
+        "الدوار الثاني",
+        "دوار الثاني",
+        "الدوار 2"
+      ]
+    },
+    {
+      "id": "third_circle",
+      "name": "الدوار الثالث",
+      "type": "landmark",
+      "parent": "amman",
+      "aliases": [
+        "الدوار الثالث",
+        "دوار الثالث",
+        "الدوار 3"
+      ]
+    },
+    {
+      "id": "fourth_circle",
+      "name": "الدوار الرابع",
+      "type": "landmark",
+      "parent": "amman",
+      "aliases": [
+        "الدوار الرابع",
+        "دوار الرابع",
+        "الدوار 4"
+      ]
+    },
+    {
+      "id": "fifth_circle",
+      "name": "الدوار الخامس",
+      "type": "landmark",
+      "parent": "amman",
+      "aliases": [
+        "الدوار الخامس",
+        "دوار الخامس",
+        "الدوار 5"
+      ]
+    },
+    {
+      "id": "sixth_circle",
+      "name": "الدوار السادس",
+      "type": "landmark",
+      "parent": "amman",
+      "aliases": [
+        "الدوار السادس",
+        "دوار السادس",
+        "الدوار 6"
+      ]
+    },
+    {
+      "id": "jabal_al_nazif",
+      "name": "جبل النظيف",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "جبل النظيف",
+        "النظيف"
+      ]
+    },
+    {
+      "id": "al_muhajireen",
+      "name": "المهاجرين",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "المهاجرين",
+        "حي المهاجرين"
+      ]
+    },
+    {
+      "id": "jabal_al_joufeh",
+      "name": "جبل الجوفة",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "جبل الجوفة",
+        "جبل جوفة",
+        "الجوفة"
+      ]
+    },
+    {
+      "id": "jabal_al_taj",
+      "name": "جبل التاج",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "جبل التاج",
+        "التاج",
+        "جبل تاج"
+      ]
+    },
+    {
+      "id": "tafayleh",
+      "name": "حي الطفايلة",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "حي الطفايلة",
+        "الطفايلة",
+        "طفايلة"
+      ]
+    },
+    {
+      "id": "wadi_saqra",
+      "name": "وادي صقرة",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "وادي صقرة",
+        "وادي صقره",
+        "صقرة"
+      ]
+    },
+    {
+      "id": "gardens",
+      "name": "الجاردنز",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "الجاردنز",
+        "شارع الجاردنز",
+        "شارع وصفي التل",
+        "وصفي التل"
+      ]
+    },
+    {
+      "id": "medical_city",
+      "name": "المدينة الطبية",
+      "type": "landmark",
+      "parent": "amman",
+      "aliases": [
+        "المدينة الطبية",
+        "المدينه الطبيه",
+        "الخدمات الطبية"
+      ]
+    },
+    {
+      "id": "mouj_makkah",
+      "name": "شارع مكة",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "شارع مكة",
+        "شارع مكه"
+      ]
+    },
+    {
+      "id": "madinah_monawarah",
+      "name": "شارع المدينة المنورة",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "شارع المدينة",
+        "شارع المدينة المنورة"
+      ]
+    },
+    {
+      "id": "sweileh",
+      "name": "صويلح",
+      "type": "city",
+      "parent": "amman",
+      "aliases": [
+        "صويلح",
+        "صويلح البلد"
+      ]
+    },
+    {
+      "id": "kamaliyah",
+      "name": "الكمالية",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "الكمالية",
+        "كمالية"
+      ]
+    },
+    {
+      "id": "yajouz_area",
+      "name": "ياجوز",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "ياجوز",
+        "شارع ياجوز"
+      ]
+    },
+    {
+      "id": "umm_rummanah",
+      "name": "أم رمانة",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "أم رمانة",
+        "ام رمانة",
+        "ام رمانه"
+      ]
+    },
+    {
+      "id": "nozha",
+      "name": "النزهة",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "النزهة",
+        "النزهه"
+      ]
+    },
+    {
+      "id": "jabal_nozha",
+      "name": "جبل النزهة",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "جبل النزهة",
+        "جبل النزهه"
+      ]
+    },
+    {
+      "id": "hashemi_north",
+      "name": "الهاشمي الشمالي",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "الهاشمي الشمالي",
+        "هاشمي شمالي"
+      ]
+    },
+    {
+      "id": "hashemi_south",
+      "name": "الهاشمي الجنوبي",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "الهاشمي الجنوبي",
+        "هاشمي جنوبي"
+      ]
+    },
+    {
+      "id": "wahadat",
+      "name": "الوحدات",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "الوحدات",
+        "مخيم الوحدات"
+      ]
+    },
+    {
+      "id": "nasr",
+      "name": "النصر",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "النصر",
+        "جبل النصر",
+        "حي النصر"
+      ]
+    },
+    {
+      "id": "ruwaq",
+      "name": "حي الرواق",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "حي الرواق",
+        "الرواق"
+      ]
+    },
+    {
+      "id": "mahattan",
+      "name": "المحطة",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "المحطة",
+        "المحطه"
+      ]
+    },
+    {
+      "id": "mohammadiyah",
+      "name": "المحمدية",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "المحمدية",
+        "المحمديه"
+      ]
+    },
+    {
+      "id": "yadoudeh",
+      "name": "اليادودة",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "اليادودة",
+        "اليادوده",
+        "يادودة"
+      ]
+    },
+    {
+      "id": "umm_basateen",
+      "name": "أم البساتين",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "أم البساتين",
+        "ام البساتين"
+      ]
+    },
+    {
+      "id": "wadi_sir_south",
+      "name": "وادي السير الجنوبي",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "وادي السير الجنوبي",
+        "جنوب وادي السير"
+      ]
+    },
+    {
+      "id": "mootah",
+      "name": "مؤتة",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "مؤتة",
+        "مؤته"
+      ]
+    },
+    {
+      "id": "qastal",
+      "name": "القسطل",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "القسطل",
+        "قسطل"
+      ]
+    },
+    {
+      "id": "airport",
+      "name": "مطار الملكة علياء",
+      "type": "landmark",
+      "parent": "amman",
+      "aliases": [
+        "مطار الملكة علياء",
+        "المطار",
+        "مطار الملكه علياء"
+      ]
+    },
+    {
+      "id": "sahab",
+      "name": "سحاب",
+      "type": "city",
+      "parent": "amman",
+      "aliases": [
+        "سحاب",
+        "سحاب الصناعية",
+        "مدينة سحاب"
+      ]
+    },
+    {
+      "id": "muwaqar",
+      "name": "الموقر",
+      "type": "city",
+      "parent": "amman",
+      "aliases": [
+        "الموقر",
+        "لواء الموقر"
+      ]
+    },
+    {
+      "id": "jiza",
+      "name": "الجيزة",
+      "type": "city",
+      "parent": "amman",
+      "aliases": [
+        "الجيزة",
+        "الجيزه",
+        "لواء الجيزة"
+      ]
+    },
+    {
+      "id": "rajeeb",
+      "name": "الرجيب",
+      "type": "neighborhood",
+      "parent": "amman",
+      "aliases": [
+        "الرجيب",
+        "رجيب"
+      ]
+    },
+    {
+      "id": "umm_rasas",
+      "name": "أم الرصاص",
+      "type": "city",
+      "parent": "amman",
+      "aliases": [
+        "أم الرصاص",
+        "ام الرصاص"
+      ]
+    },
+    {
+      "id": "zarqa_balad",
+      "name": "الزرقاء البلد",
+      "type": "neighborhood",
+      "parent": "zarqa",
+      "aliases": [
+        "الزرقاء البلد",
+        "البلد الزرقاء"
+      ]
+    },
+    {
+      "id": "prince_hasan_zarqa",
+      "name": "حي الأمير حسن",
+      "type": "neighborhood",
+      "parent": "zarqa",
+      "aliases": [
+        "حي الأمير حسن",
+        "الامير حسن الزرقاء"
+      ]
+    },
+    {
+      "id": "masoom",
+      "name": "حي معصوم",
+      "type": "neighborhood",
+      "parent": "zarqa",
+      "aliases": [
+        "معصوم",
+        "حي معصوم"
+      ]
+    },
+    {
+      "id": "prince_mohammad",
+      "name": "حي الأمير محمد",
+      "type": "neighborhood",
+      "parent": "zarqa",
+      "aliases": [
+        "حي الأمير محمد",
+        "الامير محمد الزرقاء"
+      ]
+    },
+    {
+      "id": "jabal_abyad",
+      "name": "حي الجبل الأبيض",
+      "type": "neighborhood",
+      "parent": "zarqa",
+      "aliases": [
+        "الجبل الأبيض",
+        "حي الجبل الابيض"
+      ]
+    },
+    {
+      "id": "ramzi",
+      "name": "حي رمزي",
+      "type": "neighborhood",
+      "parent": "zarqa",
+      "aliases": [
+        "حي رمزي",
+        "رمزي"
+      ]
+    },
+    {
+      "id": "zawahreh",
+      "name": "حي الزواهرة",
+      "type": "neighborhood",
+      "parent": "zarqa",
+      "aliases": [
+        "حي الزواهرة",
+        "الزواهرة",
+        "الزواهره"
+      ]
+    },
+    {
+      "id": "ghweiriyah",
+      "name": "حي الغويرية",
+      "type": "neighborhood",
+      "parent": "zarqa",
+      "aliases": [
+        "الغويرية",
+        "حي الغويريه"
+      ]
+    },
+    {
+      "id": "hussein_zarqa",
+      "name": "حي الحسين",
+      "type": "neighborhood",
+      "parent": "zarqa",
+      "aliases": [
+        "حي الحسين الزرقاء"
+      ]
+    },
+    {
+      "id": "iskan_zarqa",
+      "name": "حي الإسكان",
+      "type": "neighborhood",
+      "parent": "zarqa",
+      "aliases": [
+        "حي الإسكان",
+        "حي الاسكان"
+      ]
+    },
+    {
+      "id": "prince_ali_zarqa",
+      "name": "حي الأمير علي",
+      "type": "neighborhood",
+      "parent": "zarqa",
+      "aliases": [
+        "حي الأمير علي الزرقاء",
+        "الامير علي الزرقاء"
+      ]
+    },
+    {
+      "id": "rasheed_zarqa",
+      "name": "حي الرشيد",
+      "type": "neighborhood",
+      "parent": "zarqa",
+      "aliases": [
+        "حي الرشيد الزرقاء"
+      ]
+    },
+    {
+      "id": "tariq_zarqa",
+      "name": "حي طارق",
+      "type": "neighborhood",
+      "parent": "zarqa",
+      "aliases": [
+        "حي طارق الزرقاء"
+      ]
+    },
+    {
+      "id": "nozha_zarqa",
+      "name": "حي النزهة",
+      "type": "neighborhood",
+      "parent": "zarqa",
+      "aliases": [
+        "حي النزهة الزرقاء",
+        "النزهه الزرقاء"
+      ]
+    },
+    {
+      "id": "hashemiyeh",
+      "name": "الهاشمية",
+      "type": "city",
+      "parent": "zarqa",
+      "aliases": [
+        "الهاشمية",
+        "الهاشميه"
+      ]
+    },
+    {
+      "id": "prince_hamzah",
+      "name": "حي الأمير حمزة",
+      "type": "neighborhood",
+      "parent": "hashemiyeh",
+      "aliases": [
+        "حي الأمير حمزة",
+        "الامير حمزة"
+      ]
+    },
+    {
+      "id": "sukhneh",
+      "name": "قرية السخنة",
+      "type": "village",
+      "parent": "hashemiyeh",
+      "aliases": [
+        "السخنة",
+        "سخنة",
+        "السخنه"
+      ]
+    },
+    {
+      "id": "azraq_north",
+      "name": "الأزرق الشمالي",
+      "type": "neighborhood",
+      "parent": "zarqa",
+      "aliases": [
+        "الأزرق الشمالي",
+        "ازرق شمالي"
+      ]
+    },
+    {
+      "id": "azraq_south",
+      "name": "الأزرق الجنوبي",
+      "type": "neighborhood",
+      "parent": "zarqa",
+      "aliases": [
+        "الأزرق الجنوبي",
+        "ازرق جنوبي"
+      ]
+    },
+    {
+      "id": "azraq_reserve",
+      "name": "محمية الأزرق",
+      "type": "landmark",
+      "parent": "zarqa",
+      "aliases": [
+        "محمية الأزرق",
+        "محميه الازرق"
+      ]
+    },
+    {
+      "id": "prince_hasan_rusaifa",
+      "name": "حي الأمير حسن الرصيفة",
+      "type": "neighborhood",
+      "parent": "rusaifa",
+      "aliases": [
+        "حي الأمير حسن الرصيفة",
+        "الامير حسن الرصيفة"
+      ]
+    },
+    {
+      "id": "ameriyah",
+      "name": "حي العامرية",
+      "type": "neighborhood",
+      "parent": "rusaifa",
+      "aliases": [
+        "حي العامرية",
+        "العامرية",
+        "العامريه"
+      ]
+    },
+    {
+      "id": "mushairfeh",
+      "name": "حي المشيرفة",
+      "type": "neighborhood",
+      "parent": "rusaifa",
+      "aliases": [
+        "حي المشيرفة",
+        "المشيرفة",
+        "المشيرفه"
+      ]
+    },
+    {
+      "id": "qadisiyah_rusaifa",
+      "name": "حي القادسية",
+      "type": "neighborhood",
+      "parent": "rusaifa",
+      "aliases": [
+        "حي القادسية",
+        "القادسية",
+        "القادسيه"
+      ]
+    },
+    {
+      "id": "salt_old",
+      "name": "السلط القديمة",
+      "type": "neighborhood",
+      "parent": "salt",
+      "aliases": [
+        "السلط القديمة",
+        "وسط البلد السلط"
+      ]
+    },
+    {
+      "id": "wadi_akrad",
+      "name": "وادي الأكراد",
+      "type": "neighborhood",
+      "parent": "salt",
+      "aliases": [
+        "وادي الأكراد",
+        "وادي الاكراد"
+      ]
+    },
+    {
+      "id": "jadaa",
+      "name": "الجدعة",
+      "type": "neighborhood",
+      "parent": "salt",
+      "aliases": [
+        "الجدعة",
+        "الجدعه"
+      ]
+    },
+    {
+      "id": "salalem",
+      "name": "السلالم",
+      "type": "neighborhood",
+      "parent": "salt",
+      "aliases": [
+        "السلالم"
+      ]
+    },
+    {
+      "id": "sawaniyeh",
+      "name": "الصوانية",
+      "type": "neighborhood",
+      "parent": "salt",
+      "aliases": [
+        "الصوانية",
+        "الصوانيه"
+      ]
+    },
+    {
+      "id": "batna",
+      "name": "بطنا",
+      "type": "village",
+      "parent": "salt",
+      "aliases": [
+        "بطنا"
+      ]
+    },
+    {
+      "id": "sarou",
+      "name": "السرو",
+      "type": "neighborhood",
+      "parent": "salt",
+      "aliases": [
+        "السرو"
+      ]
+    },
+    {
+      "id": "zei",
+      "name": "زي",
+      "type": "village",
+      "parent": "salt",
+      "aliases": [
+        "زي",
+        "منطقة زي"
+      ]
+    },
+    {
+      "id": "fuheis",
+      "name": "الفحيص",
+      "type": "city",
+      "parent": "balqa",
+      "aliases": [
+        "الفحيص",
+        "فحيص"
+      ]
+    },
+    {
+      "id": "baqa_fuheis",
+      "name": "حي البقعة الفحيص",
+      "type": "neighborhood",
+      "parent": "fuheis",
+      "aliases": [
+        "بقعة الفحيص",
+        "حي البقعة الفحيص"
+      ]
+    },
+    {
+      "id": "mahass",
+      "name": "ماحص",
+      "type": "city",
+      "parent": "balqa",
+      "aliases": [
+        "ماحص"
+      ]
+    },
+    {
+      "id": "shouneh_south",
+      "name": "الشونة الجنوبية",
+      "type": "city",
+      "parent": "balqa",
+      "aliases": [
+        "الشونة الجنوبية",
+        "الشونه الجنوبيه",
+        "شونة جنوبية"
+      ]
+    },
+    {
+      "id": "karameh",
+      "name": "الكرامة",
+      "type": "village",
+      "parent": "shouneh_south",
+      "aliases": [
+        "الكرامة",
+        "الكرامه"
+      ]
+    },
+    {
+      "id": "kafrein",
+      "name": "الكفرين",
+      "type": "village",
+      "parent": "shouneh_south",
+      "aliases": [
+        "الكفرين"
+      ]
+    },
+    {
+      "id": "deir_alla",
+      "name": "دير علا",
+      "type": "city",
+      "parent": "balqa",
+      "aliases": [
+        "دير علا",
+        "ديرعلا"
+      ]
+    },
+    {
+      "id": "twal_south",
+      "name": "الطوال الجنوبي",
+      "type": "village",
+      "parent": "deir_alla",
+      "aliases": [
+        "الطوال الجنوبي"
+      ]
+    },
+    {
+      "id": "twal_north",
+      "name": "الطوال الشمالي",
+      "type": "village",
+      "parent": "deir_alla",
+      "aliases": [
+        "الطوال الشمالي"
+      ]
+    },
+    {
+      "id": "madaba_balad",
+      "name": "مادبا البلد",
+      "type": "neighborhood",
+      "parent": "madaba_city",
+      "aliases": [
+        "مادبا البلد",
+        "وسط البلد مادبا"
+      ]
+    },
+    {
+      "id": "faysaliyah",
+      "name": "حي الفيصلية",
+      "type": "neighborhood",
+      "parent": "madaba_city",
+      "aliases": [
+        "الفيصلية",
+        "حي الفيصليه"
+      ]
+    },
+    {
+      "id": "mamouniyah",
+      "name": "حي المأمونية",
+      "type": "neighborhood",
+      "parent": "madaba_city",
+      "aliases": [
+        "المأمونية",
+        "المأمونيه",
+        "المامونية"
+      ]
+    },
+    {
+      "id": "salaam_madaba",
+      "name": "حي السلام",
+      "type": "neighborhood",
+      "parent": "madaba_city",
+      "aliases": [
+        "حي السلام مادبا"
+      ]
+    },
+    {
+      "id": "khattabiyah",
+      "name": "حي الخطابية",
+      "type": "neighborhood",
+      "parent": "madaba_city",
+      "aliases": [
+        "الخطابية",
+        "حي الخطابيه"
+      ]
+    },
+    {
+      "id": "buniyet_madaba",
+      "name": "حي البنيات مادبا",
+      "type": "neighborhood",
+      "parent": "madaba_city",
+      "aliases": [
+        "بنيات مادبا"
+      ]
+    },
+    {
+      "id": "dhiban",
+      "name": "ذيبان",
+      "type": "city",
+      "parent": "madaba",
+      "aliases": [
+        "ذيبان"
+      ]
+    },
+    {
+      "id": "mleeh",
+      "name": "مليح",
+      "type": "village",
+      "parent": "dhiban",
+      "aliases": [
+        "مليح"
+      ]
+    },
+    {
+      "id": "libb",
+      "name": "لب",
+      "type": "village",
+      "parent": "dhiban",
+      "aliases": [
+        "لب"
+      ]
+    },
+    {
+      "id": "maeen",
+      "name": "ماعين",
+      "type": "city",
+      "parent": "madaba",
+      "aliases": [
+        "ماعين"
+      ]
+    },
+    {
+      "id": "hamamat_maeen",
+      "name": "حمامات ماعين",
+      "type": "landmark",
+      "parent": "maeen",
+      "aliases": [
+        "حمامات ماعين",
+        "حمامات معين"
+      ]
+    },
+    {
+      "id": "irbid_balad",
+      "name": "إربد البلد",
+      "type": "neighborhood",
+      "parent": "irbid_city",
+      "aliases": [
+        "إربد البلد",
+        "وسط البلد اربد"
+      ]
+    },
+    {
+      "id": "east_irbid",
+      "name": "الحي الشرقي إربد",
+      "type": "neighborhood",
+      "parent": "irbid_city",
+      "aliases": [
+        "الحي الشرقي",
+        "شرق اربد"
+      ]
+    },
+    {
+      "id": "north_irbid",
+      "name": "الحي الشمالي إربد",
+      "type": "neighborhood",
+      "parent": "irbid_city",
+      "aliases": [
+        "الحي الشمالي",
+        "شمال اربد"
+      ]
+    },
+    {
+      "id": "south_irbid",
+      "name": "الحي الجنوبي إربد",
+      "type": "neighborhood",
+      "parent": "irbid_city",
+      "aliases": [
+        "الحي الجنوبي",
+        "جنوب اربد"
+      ]
+    },
+    {
+      "id": "west_irbid",
+      "name": "الحي الغربي إربد",
+      "type": "neighborhood",
+      "parent": "irbid_city",
+      "aliases": [
+        "الحي الغربي",
+        "غرب اربد"
+      ]
+    },
+    {
+      "id": "university_street",
+      "name": "شارع الجامعة إربد",
+      "type": "neighborhood",
+      "parent": "irbid_city",
+      "aliases": [
+        "شارع الجامعة",
+        "شارع الجامعه"
+      ]
+    },
+    {
+      "id": "yarmouk_univ",
+      "name": "منطقة جامعة اليرموك",
+      "type": "landmark",
+      "parent": "irbid_city",
+      "aliases": [
+        "جامعة اليرموك",
+        "جامعه اليرموك"
+      ]
+    },
+    {
+      "id": "husn",
+      "name": "الحصن",
+      "type": "city",
+      "parent": "irbid",
+      "aliases": [
+        "الحصن"
+      ]
+    },
+    {
+      "id": "nuaimah",
+      "name": "النعيمة",
+      "type": "city",
+      "parent": "irbid",
+      "aliases": [
+        "النعيمة",
+        "النعيمه"
+      ]
+    },
+    {
+      "id": "bushra",
+      "name": "بشرى",
+      "type": "city",
+      "parent": "irbid",
+      "aliases": [
+        "بشرى"
+      ]
+    },
+    {
+      "id": "huwarah",
+      "name": "حوارة",
+      "type": "city",
+      "parent": "irbid",
+      "aliases": [
+        "حوارة",
+        "حواري"
+      ]
+    },
+    {
+      "id": "kafr_yuba",
+      "name": "كفر يوبا",
+      "type": "city",
+      "parent": "irbid",
+      "aliases": [
+        "كفر يوبا",
+        "كفريوبا"
+      ]
+    },
+    {
+      "id": "beit_ras",
+      "name": "بيت راس",
+      "type": "city",
+      "parent": "irbid",
+      "aliases": [
+        "بيت راس",
+        "بيتراس"
+      ]
+    },
+    {
+      "id": "saal",
+      "name": "سال",
+      "type": "city",
+      "parent": "irbid",
+      "aliases": [
+        "سال"
+      ]
+    },
+    {
+      "id": "torrah",
+      "name": "الطرة",
+      "type": "city",
+      "parent": "ramtha",
+      "aliases": [
+        "الطرة",
+        "الطره"
+      ]
+    },
+    {
+      "id": "shajarah",
+      "name": "الشجرة",
+      "type": "city",
+      "parent": "ramtha",
+      "aliases": [
+        "الشجرة",
+        "الشجره"
+      ]
+    },
+    {
+      "id": "amrawah",
+      "name": "عمراوة",
+      "type": "village",
+      "parent": "ramtha",
+      "aliases": [
+        "عمراوة",
+        "عمراوه"
+      ]
+    },
+    {
+      "id": "bweidah",
+      "name": "البويضة",
+      "type": "village",
+      "parent": "ramtha",
+      "aliases": [
+        "البويضة",
+        "البويضه"
+      ]
+    },
+    {
+      "id": "aydoun",
+      "name": "إيدون",
+      "type": "city",
+      "parent": "irbid",
+      "aliases": [
+        "إيدون",
+        "ايدون"
+      ]
+    },
+    {
+      "id": "sareeh",
+      "name": "الصريح",
+      "type": "city",
+      "parent": "irbid",
+      "aliases": [
+        "الصريح"
+      ]
+    },
+    {
+      "id": "shouneh_north",
+      "name": "الشونة الشمالية",
+      "type": "city",
+      "parent": "irbid",
+      "aliases": [
+        "الشونة الشمالية",
+        "شونة شمالية"
+      ]
+    },
+    {
+      "id": "mashari",
+      "name": "المشارع",
+      "type": "city",
+      "parent": "irbid",
+      "aliases": [
+        "المشارع"
+      ]
+    },
+    {
+      "id": "wadi_rayan",
+      "name": "وادي الريان",
+      "type": "landmark",
+      "parent": "irbid",
+      "aliases": [
+        "وادي الريان",
+        "الريان"
+      ]
+    },
+    {
+      "id": "waqas",
+      "name": "وقاص",
+      "type": "village",
+      "parent": "irbid",
+      "aliases": [
+        "وقاص"
+      ]
+    },
+    {
+      "id": "kureimeh",
+      "name": "كريمة",
+      "type": "village",
+      "parent": "irbid",
+      "aliases": [
+        "كريمة",
+        "كريمه"
+      ]
+    },
+    {
+      "id": "deir_abi_said",
+      "name": "دير أبي سعيد",
+      "type": "city",
+      "parent": "irbid",
+      "aliases": [
+        "دير أبي سعيد",
+        "دير ابي سعيد"
+      ]
+    },
+    {
+      "id": "judeita",
+      "name": "جديتا",
+      "type": "city",
+      "parent": "irbid",
+      "aliases": [
+        "جديتا"
+      ]
+    },
+    {
+      "id": "kafr_el_ma",
+      "name": "كفر الماء",
+      "type": "city",
+      "parent": "irbid",
+      "aliases": [
+        "كفر الماء",
+        "كفرالماء"
+      ]
+    },
+    {
+      "id": "tibneh",
+      "name": "تبنة",
+      "type": "city",
+      "parent": "irbid",
+      "aliases": [
+        "تبنة",
+        "تبنه"
+      ]
+    },
+    {
+      "id": "samou",
+      "name": "سموع",
+      "type": "city",
+      "parent": "irbid",
+      "aliases": [
+        "سموع"
+      ]
+    },
+    {
+      "id": "mafraq_balad",
+      "name": "المفرق البلد",
+      "type": "neighborhood",
+      "parent": "mafraq_city",
+      "aliases": [
+        "المفرق البلد",
+        "وسط البلد المفرق"
+      ]
+    },
+    {
+      "id": "hussein_mafraq",
+      "name": "حي الحسين المفرق",
+      "type": "neighborhood",
+      "parent": "mafraq_city",
+      "aliases": [
+        "حي الحسين",
+        "حسين المفرق"
+      ]
+    },
+    {
+      "id": "prince_hasan_mafraq",
+      "name": "حي الأمير حسن المفرق",
+      "type": "neighborhood",
+      "parent": "mafraq_city",
+      "aliases": [
+        "حي الأمير حسن",
+        "الامير حسن المفرق"
+      ]
+    },
+    {
+      "id": "univ_mafraq",
+      "name": "حي الجامعة المفرق",
+      "type": "neighborhood",
+      "parent": "mafraq_city",
+      "aliases": [
+        "حي الجامعة",
+        "جامعة المفرق"
+      ]
+    },
+    {
+      "id": "rehab",
+      "name": "رحاب",
+      "type": "city",
+      "parent": "mafraq",
+      "aliases": [
+        "رحاب",
+        "قضاء رحاب"
+      ]
+    },
+    {
+      "id": "blama",
+      "name": "بلعما",
+      "type": "city",
+      "parent": "mafraq",
+      "aliases": [
+        "بلعما"
+      ]
+    },
+    {
+      "id": "manshieh_bani_hasan",
+      "name": "منشية بني حسن",
+      "type": "city",
+      "parent": "mafraq",
+      "aliases": [
+        "منشية بني حسن",
+        "المنشية"
+      ]
+    },
+    {
+      "id": "umm_jimal",
+      "name": "أم الجمال",
+      "type": "city",
+      "parent": "mafraq",
+      "aliases": [
+        "أم الجمال",
+        "ام الجمال"
+      ]
+    },
+    {
+      "id": "subha",
+      "name": "صبحا",
+      "type": "city",
+      "parent": "mafraq",
+      "aliases": [
+        "صبحا"
+      ]
+    },
+    {
+      "id": "ruwayshid",
+      "name": "الرويشد",
+      "type": "city",
+      "parent": "mafraq",
+      "aliases": [
+        "الرويشد",
+        "رويشد"
+      ]
+    },
+    {
+      "id": "khaldiyeh",
+      "name": "الخالدية",
+      "type": "city",
+      "parent": "mafraq",
+      "aliases": [
+        "الخالدية",
+        "الخالديه"
+      ]
+    },
+    {
+      "id": "sama_sarhan",
+      "name": "سما السرحان",
+      "type": "city",
+      "parent": "mafraq",
+      "aliases": [
+        "سما السرحان",
+        "السرحان"
+      ]
+    },
+    {
+      "id": "jerash_balad",
+      "name": "جرش البلد",
+      "type": "neighborhood",
+      "parent": "jerash_city",
+      "aliases": [
+        "جرش البلد",
+        "وسط البلد جرش"
+      ]
+    },
+    {
+      "id": "souf",
+      "name": "سوف",
+      "type": "city",
+      "parent": "jerash",
+      "aliases": [
+        "سوف"
+      ]
+    },
+    {
+      "id": "sakib",
+      "name": "ساكب",
+      "type": "city",
+      "parent": "jerash",
+      "aliases": [
+        "ساكب"
+      ]
+    },
+    {
+      "id": "kitteh",
+      "name": "الكتة",
+      "type": "city",
+      "parent": "jerash",
+      "aliases": [
+        "الكتة",
+        "الكته"
+      ]
+    },
+    {
+      "id": "reimoun",
+      "name": "ريمون",
+      "type": "city",
+      "parent": "jerash",
+      "aliases": [
+        "ريمون"
+      ]
+    },
+    {
+      "id": "qafqafa",
+      "name": "قفقفا",
+      "type": "city",
+      "parent": "jerash",
+      "aliases": [
+        "قفقفا"
+      ]
+    },
+    {
+      "id": "burma",
+      "name": "برما",
+      "type": "city",
+      "parent": "jerash",
+      "aliases": [
+        "برما"
+      ]
+    },
+    {
+      "id": "ajloun_balad",
+      "name": "عجلون البلد",
+      "type": "neighborhood",
+      "parent": "ajloun_city",
+      "aliases": [
+        "عجلون البلد",
+        "وسط البلد عجلون"
+      ]
+    },
+    {
+      "id": "anjara",
+      "name": "عنجرة",
+      "type": "city",
+      "parent": "ajloun",
+      "aliases": [
+        "عنجرة",
+        "عنجره"
+      ]
+    },
+    {
+      "id": "ain_janna",
+      "name": "عين جنا",
+      "type": "city",
+      "parent": "ajloun",
+      "aliases": [
+        "عين جنا",
+        "عين جنة"
+      ]
+    },
+    {
+      "id": "kufranjeh",
+      "name": "كفرنجة",
+      "type": "city",
+      "parent": "ajloun",
+      "aliases": [
+        "كفرنجة",
+        "كفرنجه"
+      ]
+    },
+    {
+      "id": "sakhrah",
+      "name": "صخرة",
+      "type": "city",
+      "parent": "ajloun",
+      "aliases": [
+        "صخرة",
+        "صخره"
+      ]
+    },
+    {
+      "id": "abeen",
+      "name": "عبين",
+      "type": "city",
+      "parent": "ajloun",
+      "aliases": [
+        "عبين"
+      ]
+    },
+    {
+      "id": "ableen",
+      "name": "عبلين",
+      "type": "city",
+      "parent": "ajloun",
+      "aliases": [
+        "عبلين"
+      ]
+    },
+    {
+      "id": "rajib",
+      "name": "راجب",
+      "type": "village",
+      "parent": "kufranjeh",
+      "aliases": [
+        "راجب"
+      ]
+    },
+    {
+      "id": "hashemiyeh_ajloun",
+      "name": "الهاشمية عجلون",
+      "type": "village",
+      "parent": "ajloun",
+      "aliases": [
+        "الهاشمية عجلون",
+        "الهاشمية"
+      ]
+    },
+    {
+      "id": "karak_balad",
+      "name": "الكرك البلد",
+      "type": "neighborhood",
+      "parent": "karak_city",
+      "aliases": [
+        "الكرك البلد",
+        "وسط البلد الكرك"
+      ]
+    },
+    {
+      "id": "marj",
+      "name": "المرج",
+      "type": "neighborhood",
+      "parent": "karak_city",
+      "aliases": [
+        "المرج",
+        "المرج الكرك"
+      ]
+    },
+    {
+      "id": "thanieh",
+      "name": "الثنية",
+      "type": "neighborhood",
+      "parent": "karak_city",
+      "aliases": [
+        "الثنية",
+        "الثنيه"
+      ]
+    },
+    {
+      "id": "zahoum",
+      "name": "زحوم",
+      "type": "neighborhood",
+      "parent": "karak_city",
+      "aliases": [
+        "زحوم"
+      ]
+    },
+    {
+      "id": "adar",
+      "name": "أدر",
+      "type": "village",
+      "parent": "karak",
+      "aliases": [
+        "أدر",
+        "ادر"
+      ]
+    },
+    {
+      "id": "mootah_karak",
+      "name": "مؤتة الكرك",
+      "type": "city",
+      "parent": "karak",
+      "aliases": [
+        "مؤتة الكرك",
+        "مؤتة"
+      ]
+    },
+    {
+      "id": "mazar_south",
+      "name": "المزار الجنوبي",
+      "type": "city",
+      "parent": "karak",
+      "aliases": [
+        "المزار الجنوبي",
+        "المزار"
+      ]
+    },
+    {
+      "id": "moab",
+      "name": "مؤاب",
+      "type": "city",
+      "parent": "karak",
+      "aliases": [
+        "مؤاب"
+      ]
+    },
+    {
+      "id": "qasr",
+      "name": "القصر",
+      "type": "city",
+      "parent": "karak",
+      "aliases": [
+        "القصر"
+      ]
+    },
+    {
+      "id": "rabbah",
+      "name": "الربة",
+      "type": "city",
+      "parent": "karak",
+      "aliases": [
+        "الربة",
+        "الربه"
+      ]
+    },
+    {
+      "id": "smakieh",
+      "name": "السماكية",
+      "type": "city",
+      "parent": "karak",
+      "aliases": [
+        "السماكية",
+        "السماكيه"
+      ]
+    },
+    {
+      "id": "ghor_safi",
+      "name": "غور الصافي",
+      "type": "city",
+      "parent": "karak",
+      "aliases": [
+        "غور الصافي",
+        "الصافي"
+      ]
+    },
+    {
+      "id": "aghouar_south",
+      "name": "الأغوار الجنوبية",
+      "type": "city",
+      "parent": "karak",
+      "aliases": [
+        "الأغوار الجنوبية",
+        "الصافي"
+      ]
+    },
+    {
+      "id": "safi",
+      "name": "الصافي",
+      "type": "city",
+      "parent": "karak",
+      "aliases": [
+        "الصافي"
+      ]
+    },
+    {
+      "id": "tafilah_balad",
+      "name": "الطفيلة البلد",
+      "type": "neighborhood",
+      "parent": "tafilah_city",
+      "aliases": [
+        "الطفيلة البلد",
+        "وسط البلد الطفيلة"
+      ]
+    },
+    {
+      "id": "ain_baida",
+      "name": "عين البيضاء",
+      "type": "city",
+      "parent": "tafilah",
+      "aliases": [
+        "عين البيضاء",
+        "عين البيضا"
+      ]
+    },
+    {
+      "id": "hassa",
+      "name": "الحسا",
+      "type": "city",
+      "parent": "tafilah",
+      "aliases": [
+        "الحسا"
+      ]
+    },
+    {
+      "id": "buseira",
+      "name": "بصيرا",
+      "type": "city",
+      "parent": "tafilah",
+      "aliases": [
+        "بصيرا"
+      ]
+    },
+    {
+      "id": "qadisiyah",
+      "name": "القادسية",
+      "type": "city",
+      "parent": "tafilah",
+      "aliases": [
+        "القادسية",
+        "القادسيه"
+      ]
+    },
+    {
+      "id": "gharandal",
+      "name": "غرندل",
+      "type": "village",
+      "parent": "buseira",
+      "aliases": [
+        "غرندل"
+      ]
+    },
+    {
+      "id": "dhana",
+      "name": "ضانا",
+      "type": "village",
+      "parent": "buseira",
+      "aliases": [
+        "ضانا",
+        "محمية ضانا"
+      ]
+    },
+    {
+      "id": "maan_balad",
+      "name": "معان البلد",
+      "type": "neighborhood",
+      "parent": "maan_city",
+      "aliases": [
+        "معان البلد",
+        "وسط البلد معان"
+      ]
+    },
+    {
+      "id": "ashraf",
+      "name": "حي الأشراف",
+      "type": "neighborhood",
+      "parent": "maan_city",
+      "aliases": [
+        "الأشراف",
+        "حي الأشراف"
+      ]
+    },
+    {
+      "id": "toor",
+      "name": "حي الطور",
+      "type": "neighborhood",
+      "parent": "maan_city",
+      "aliases": [
+        "حي الطور",
+        "الطور"
+      ]
+    },
+    {
+      "id": "industrial_maan",
+      "name": "المنطقة الصناعية معان",
+      "type": "industrial",
+      "parent": "maan_city",
+      "aliases": [
+        "المنطقة الصناعية معان"
+      ]
+    },
+    {
+      "id": "wadi_musa",
+      "name": "وادي موسى",
+      "type": "city",
+      "parent": "maan",
+      "aliases": [
+        "وادي موسى",
+        "وادي موسى البتراء"
+      ]
+    },
+    {
+      "id": "petra",
+      "name": "البتراء",
+      "type": "landmark",
+      "parent": "maan",
+      "aliases": [
+        "البتراء",
+        "البتره"
+      ]
+    },
+    {
+      "id": "taybeh",
+      "name": "الطيبة",
+      "type": "city",
+      "parent": "maan",
+      "aliases": [
+        "الطيبة",
+        "الطيبة الجنوبية"
+      ]
+    },
+    {
+      "id": "umm_sayhoun",
+      "name": "أم صيحون",
+      "type": "city",
+      "parent": "maan",
+      "aliases": [
+        "أم صيحون",
+        "ام صيحون"
+      ]
+    },
+    {
+      "id": "beida",
+      "name": "البيضا",
+      "type": "city",
+      "parent": "maan",
+      "aliases": [
+        "البيضا",
+        "البيضاء"
+      ]
+    },
+    {
+      "id": "shobak",
+      "name": "الشوبك",
+      "type": "city",
+      "parent": "maan",
+      "aliases": [
+        "الشوبك"
+      ]
+    },
+    {
+      "id": "heisheh",
+      "name": "الهيشة",
+      "type": "village",
+      "parent": "shobak",
+      "aliases": [
+        "الهيشة",
+        "الهيشه"
+      ]
+    },
+    {
+      "id": "mansourah",
+      "name": "المنصورة",
+      "type": "village",
+      "parent": "shobak",
+      "aliases": [
+        "المنصورة",
+        "المنصوره"
+      ]
+    },
+    {
+      "id": "huseiniyeh",
+      "name": "الحسينية",
+      "type": "city",
+      "parent": "maan",
+      "aliases": [
+        "الحسينية",
+        "الحسينيه"
+      ]
+    },
+    {
+      "id": "jafr",
+      "name": "الجفر",
+      "type": "city",
+      "parent": "maan",
+      "aliases": [
+        "الجفر"
+      ]
+    },
+    {
+      "id": "athruh",
+      "name": "أذرح",
+      "type": "city",
+      "parent": "maan",
+      "aliases": [
+        "أذرح",
+        "اذرح"
+      ]
+    },
+    {
+      "id": "aqaba_balad",
+      "name": "العقبة البلد",
+      "type": "neighborhood",
+      "parent": "aqaba_city",
+      "aliases": [
+        "العقبة البلد",
+        "وسط البلد العقبة"
+      ]
+    },
+    {
+      "id": "south_beach",
+      "name": "الشاطئ الجنوبي",
+      "type": "neighborhood",
+      "parent": "aqaba_city",
+      "aliases": [
+        "الشاطئ الجنوبي",
+        "شاطئ جنوبي"
+      ]
+    },
+    {
+      "id": "north_beach",
+      "name": "الشاطئ الشمالي",
+      "type": "neighborhood",
+      "parent": "aqaba_city",
+      "aliases": [
+        "الشاطئ الشمالي",
+        "شاطئ شمالي"
+      ]
+    },
+    {
+      "id": "industrial_aqaba",
+      "name": "المنطقة الصناعية العقبة",
+      "type": "industrial",
+      "parent": "aqaba_city",
+      "aliases": [
+        "المنطقة الصناعية العقبة"
+      ]
+    },
+    {
+      "id": "eighth_district",
+      "name": "الحي الثامن العقبة",
+      "type": "neighborhood",
+      "parent": "aqaba_city",
+      "aliases": [
+        "الحي الثامن",
+        "الثامن العقبة"
+      ]
+    },
+    {
+      "id": "mahdoud",
+      "name": "المحدود",
+      "type": "neighborhood",
+      "parent": "aqaba_city",
+      "aliases": [
+        "المحدود",
+        "حي المحدود"
+      ]
+    },
+    {
+      "id": "sakaniyeh",
+      "name": "السكنية",
+      "type": "neighborhood",
+      "parent": "aqaba_city",
+      "aliases": [
+        "السكنية",
+        "المنطقة السكنية"
+      ]
+    },
+    {
+      "id": "wadi_araba",
+      "name": "وادي عربة",
+      "type": "city",
+      "parent": "aqaba",
+      "aliases": [
+        "وادي عربة",
+        "وادي عربه"
+      ]
+    },
+    {
+      "id": "quweirah",
+      "name": "القويرة",
+      "type": "city",
+      "parent": "aqaba",
+      "aliases": [
+        "القويرة",
+        "القويره"
+      ]
+    },
+    {
+      "id": "deisah",
+      "name": "الديسة",
+      "type": "city",
+      "parent": "aqaba",
+      "aliases": [
+        "الديسة",
+        "الديسه"
+      ]
+    },
+    {
+      "id": "rum",
+      "name": "رم",
+      "type": "village",
+      "parent": "aqaba",
+      "aliases": [
+        "رم",
+        "وادي رم"
+      ]
+    },
+    {
+      "id": "wadi_rum",
+      "name": "وادي رم",
+      "type": "landmark",
+      "parent": "aqaba",
+      "aliases": [
+        "وادي رم",
+        "الديسة وادي رم"
+      ]
     }
   ]
 }
