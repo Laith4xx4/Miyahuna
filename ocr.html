@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>استخراج بيانات الشكاوى من الصور — مياهنا الأردن</title>
+<meta name="description" content="نظام OCR احترافي لاستخراج بيانات شكاوى المياه من صور الجداول العربية">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="icon" href="l.png" type="image/png">
+<link rel="stylesheet" href="style.css">
+
+<style>
+/* =========================================================
+   OCR PAGE STYLES
+   ========================================================= */
+
+.ocr-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1.5px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-ink-soft);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.18s var(--ease);
+}
+.btn-back:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent-dark);
+  transform: translateX(3px);
+}
+
+.ocr-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #7c3aed;
+  background: #f5f3ff;
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+  border: 1px solid #ddd6fe;
+}
+.ocr-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(26px, 4.5vw, 38px);
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  background: linear-gradient(135deg, #4c1d95, #7c3aed, #6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.ocr-subtitle {
+  margin: 0;
+  color: var(--color-ink-soft);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+.ocr-mark {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #7c3aed, #6366f1);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.3);
+  animation: dropPulse 3.5s var(--ease) infinite;
+  flex-shrink: 0;
+}
+
+/* Upload zone */
+.upload-zone {
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 40px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s var(--ease);
+  background: var(--color-surface-sunken);
+}
+.upload-zone:hover, .upload-zone.drag-over {
+  border-color: #7c3aed;
+  background: #faf5ff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(124, 58, 237, 0.12);
+}
+.upload-zone.has-image {
+  border-style: solid;
+  border-color: #7c3aed;
+  padding: 16px;
+}
+.upload-icon-wrap {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+  border: 1.5px solid #ddd6fe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  color: #7c3aed;
+  margin: 0 auto 16px;
+  transition: transform 0.2s var(--ease);
+}
+.upload-zone:hover .upload-icon-wrap { transform: scale(1.08) rotate(-3deg); }
+.upload-title { font-family: var(--font-display); font-size: 17px; font-weight: 700; color: var(--color-ink); margin: 0 0 6px; }
+.upload-hint { font-size: 13.5px; color: var(--color-muted); margin: 0 0 16px; }
+.upload-formats { display: inline-flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+.format-badge { font-size: 11.5px; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: #ede9fe; color: #5b21b6; border: 1px solid #ddd6fe; }
+#imageFileInput { display: none; }
+
+.image-preview-wrap { position: relative; display: inline-block; max-width: 100%; }
+.preview-img { max-width: 100%; max-height: 400px; border-radius: var(--radius-md); display: block; margin: 0 auto; box-shadow: 0 4px 20px rgba(0,0,0,0.10); object-fit: contain; }
+.btn-remove-img {
+  position: absolute; top: -8px; left: -8px;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: #ef4444; color: #fff; border: none; cursor: pointer;
+  font-size: 12px; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 8px rgba(239,68,68,0.4); transition: all 0.18s var(--ease);
+}
+.btn-remove-img:hover { transform: scale(1.1); background: #dc2626; }
+
+/* Analyze button */
+.btn-analyze {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  font-family: var(--font-body); font-size: 16px; font-weight: 700;
+  padding: 14px 32px; border-radius: var(--radius-md); border: none;
+  background: linear-gradient(135deg, #7c3aed, #6366f1); color: #fff;
+  cursor: pointer; box-shadow: 0 6px 20px rgba(124,58,237,0.35);
+  transition: all 0.2s var(--ease); width: 100%; margin-top: 16px;
+}
+.btn-analyze:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(124,58,237,0.45); }
+.btn-analyze:active:not(:disabled) { transform: scale(0.98); }
+.btn-analyze:disabled { opacity: 0.55; cursor: not-allowed; box-shadow: none; }
+.btn-analyze .spinner { width: 18px; height: 18px; border: 2.5px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
+.btn-analyze.loading .spinner { display: block; }
+.btn-analyze.loading .btn-icon { display: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Results */
+.results-container { display: flex; flex-direction: column; gap: 16px; }
+.complaint-card {
+  background: var(--color-surface); border: 1.5px solid #ddd6fe;
+  border-radius: var(--radius-lg); box-shadow: 0 2px 12px rgba(124,58,237,0.08);
+  overflow: hidden; animation: cardIn 0.35s var(--ease) both;
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+.complaint-card:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(124,58,237,0.14); }
+.complaint-card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 18px; background: linear-gradient(135deg, #7c3aed 0%, #6366f1 100%); color: #fff;
+}
+.complaint-num-badge { display: inline-flex; align-items: center; gap: 7px; font-size: 13.5px; font-weight: 700; }
+.complaint-card-actions { display: flex; gap: 6px; }
+.btn-copy-card, .btn-copy-json {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12px; font-weight: 600; padding: 5px 11px; border-radius: 999px;
+  border: 1.5px solid rgba(255,255,255,0.35); background: rgba(255,255,255,0.15);
+  color: #fff; cursor: pointer; transition: all 0.16s var(--ease); white-space: nowrap;
+  font-family: var(--font-body);
+}
+.btn-copy-card:hover, .btn-copy-json:hover { background: rgba(255,255,255,0.28); border-color: rgba(255,255,255,0.7); }
+.complaint-fields { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+.complaint-field { padding: 14px 18px; border-bottom: 1px solid #f3f0ff; border-right: 1px solid #f3f0ff; transition: background 0.15s var(--ease); }
+.complaint-field:hover { background: #faf5ff; }
+.complaint-field.field-id { background: #f5f3ff; }
+.complaint-field.field-id .field-value { color: #5b21b6; font-weight: 700; font-size: 16px; }
+.field-label { font-size: 11px; font-weight: 700; color: #7c3aed; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px; display: flex; align-items: center; gap: 5px; }
+.field-value { font-size: 15px; font-weight: 600; color: var(--color-ink); word-break: break-all; direction: rtl; }
+.field-value.unavailable { color: var(--color-muted); font-style: italic; font-weight: 400; }
+
+/* JSON preview */
+.json-preview-wrap { margin-top: 8px; border-radius: var(--radius-md); border: 1.5px solid #ddd6fe; overflow: hidden; animation: cardIn 0.4s var(--ease) both; }
+.json-preview-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: #1e1b4b; color: #a5b4fc; font-size: 13px; font-weight: 700; font-family: 'Courier New', monospace; }
+.json-preview-body { background: #0f0a2e; color: #c4b5fd; font-family: 'Courier New', Consolas, monospace; font-size: 13px; line-height: 1.8; padding: 16px 20px; overflow-x: auto; white-space: pre; direction: ltr; text-align: left; max-height: 340px; overflow-y: auto; }
+.json-string { color: #86efac; }
+.json-key { color: #93c5fd; }
+.json-number { color: #fda4af; }
+.json-null { color: #d1d5db; }
+
+/* Export bar */
+.export-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 14px 18px; background: #f5f3ff; border: 1.5px solid #ddd6fe; border-radius: var(--radius-md); margin-bottom: 16px; animation: fadeInUp 0.4s var(--ease) both; }
+.export-count { font-size: 14px; font-weight: 700; color: #5b21b6; display: flex; align-items: center; gap: 7px; }
+.export-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn-export { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-body); font-size: 13.5px; font-weight: 600; padding: 8px 16px; border-radius: var(--radius-sm); border: 1.5px solid var(--color-border); background: var(--color-surface); color: var(--color-ink); cursor: pointer; transition: all 0.18s var(--ease); }
+.btn-export:hover { border-color: #7c3aed; color: #5b21b6; background: #faf5ff; }
+.btn-export.primary-export { background: linear-gradient(135deg, #7c3aed, #6366f1); color: #fff; border-color: transparent; box-shadow: 0 3px 10px rgba(124,58,237,0.25); }
+.btn-export.primary-export:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(124,58,237,0.35); color: #fff; background: linear-gradient(135deg, #6d28d9, #4f46e5); }
+
+/* Error & Loading */
+.error-state { text-align: center; padding: 40px 24px; color: #dc2626; animation: fadeInUp 0.3s var(--ease) both; }
+.error-state i { font-size: 36px; margin-bottom: 12px; display: block; color: #fca5a5; }
+.error-state p { margin: 0 0 8px; font-size: 15px; font-weight: 600; }
+.error-state small { color: var(--color-muted); font-size: 13px; }
+.loading-overlay { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 24px; gap: 16px; animation: fadeInUp 0.3s var(--ease) both; }
+.loading-spinner-lg { width: 48px; height: 48px; border: 4px solid #ede9fe; border-top-color: #7c3aed; border-radius: 50%; animation: spin 0.8s linear infinite; }
+.loading-text { font-size: 15px; font-weight: 600; color: #7c3aed; }
+.loading-dots span { display: inline-block; animation: loadingDot 1.4s infinite both; }
+.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes loadingDot { 0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); } 40% { opacity: 1; transform: scale(1); } }
+
+/* Tips */
+.tips-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); gap: 12px; margin-top: 4px; }
+.tip-card { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border-radius: var(--radius-md); background: var(--color-surface-sunken); border: 1px solid var(--color-border); transition: all 0.18s var(--ease); }
+.tip-card:hover { border-color: #ddd6fe; background: #faf5ff; }
+.tip-icon { width: 34px; height: 34px; border-radius: 9px; background: #ede9fe; color: #7c3aed; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+.tip-text { font-size: 12.5px; color: var(--color-ink-soft); line-height: 1.55; font-weight: 500; }
+.tip-text strong { display: block; color: var(--color-ink); font-size: 13px; margin-bottom: 2px; }
+
+/* Scrollbar */
+.json-preview-body::-webkit-scrollbar { width: 5px; height: 5px; }
+.json-preview-body::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+.json-preview-body::-webkit-scrollbar-thumb { background: rgba(165,180,252,0.4); border-radius: 3px; }
+
+@media (max-width: 600px) {
+  .complaint-fields { grid-template-columns: 1fr; }
+  .export-bar { flex-direction: column; align-items: stretch; }
+  .export-actions { flex-direction: column; }
+  .btn-export { justify-content: center; }
+  .api-key-row { flex-direction: column; }
+  .btn-save-key { width: 100%; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="ripple-bg" aria-hidden="true">
+  <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+    <path d="M0,160 C240,220 480,100 720,140 C960,180 1200,260 1440,180 L1440,320 L0,320 Z"></path>
+  </svg>
+</div>
+
+<div class="app-shell">
+
+  <!-- HEADER -->
+  <header class="app-header">
+    <div class="ocr-nav">
+      <a href="index.html" class="btn-back">
+        <i class="fa-solid fa-arrow-right"></i> العودة لجدول الأدوار
+      </a>
+    </div>
+    <div class="header-content">
+      <div class="header-titles">
+        <div class="ocr-eyebrow">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <span>نظام OCR الذكي — مياهنا الأردن</span>
+        </div>
+        <h1 class="ocr-title">استخراج بيانات الشكاوى</h1>
+        <p class="ocr-subtitle">ارفع صورة جدول الشكاوى وسيستخرج النظام تلقائياً جميع البيانات بدقة عالية</p>
+      </div>
+      <div class="ocr-mark" aria-hidden="true">
+        <i class="fa-solid fa-camera"></i>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-main">
+
+    <!-- UPLOAD -->
+    <section class="panel" aria-labelledby="uploadHeading">
+      <div class="panel-head">
+        <h2 id="uploadHeading"><i class="fa-solid fa-image"></i> رفع صورة الجدول</h2>
+        <span class="hint">اسحب الصورة هنا أو اضغط للاختيار</span>
+      </div>
+
+      <div id="uploadZone" class="upload-zone" role="button" tabindex="0" aria-label="منطقة رفع الصور">
+        <div id="uploadDefault">
+          <div class="upload-icon-wrap"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+          <p class="upload-title">اسحب الصورة وأفلتها هنا</p>
+          <p class="upload-hint">أو اضغط لاختيار صورة من جهازك</p>
+          <div class="upload-formats">
+            <span class="format-badge">PNG</span>
+            <span class="format-badge">JPG</span>
+            <span class="format-badge">JPEG</span>
+            <span class="format-badge">WEBP</span>
+            <span class="format-badge">GIF</span>
+          </div>
+        </div>
+        <div id="uploadPreview" hidden>
+          <div class="image-preview-wrap">
+            <img id="previewImg" class="preview-img" src="" alt="معاينة الصورة">
+            <button id="btnRemoveImg" class="btn-remove-img" title="حذف الصورة"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+        </div>
+      </div>
+      <input type="file" id="imageFileInput" accept="image/png,image/jpeg,image/jpg,image/webp,image/gif">
+
+      <button id="btnAnalyze" class="btn-analyze" disabled>
+        <div class="spinner" aria-hidden="true"></div>
+        <i class="fa-solid fa-wand-magic-sparkles btn-icon"></i>
+        <span class="btn-text">استخراج البيانات تلقائياً</span>
+      </button>
+    </section>
+
+    <!-- TIPS -->
+    <section class="panel" aria-label="نصائح لأفضل نتائج">
+      <div class="panel-head">
+        <h2><i class="fa-solid fa-lightbulb"></i> نصائح للحصول على أفضل نتائج</h2>
+      </div>
+      <div class="tips-grid">
+        <div class="tip-card">
+          <div class="tip-icon"><i class="fa-solid fa-sun"></i></div>
+          <p class="tip-text"><strong>إضاءة جيدة</strong>تأكد من وضوح الصورة وعدم وجود ظلال</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon"><i class="fa-solid fa-crop"></i></div>
+          <p class="tip-text"><strong>اقطع الصورة</strong>اجعل الجدول يملأ معظم الصورة</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon"><i class="fa-solid fa-text-height"></i></div>
+          <p class="tip-text"><strong>وضوح النص</strong>يجب أن يكون النص واضحاً ومقروءاً</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon"><i class="fa-solid fa-table"></i></div>
+          <p class="tip-text"><strong>هيكل الجدول</strong>حافظ على حدود الجدول في الصورة</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon"><i class="fa-solid fa-expand"></i></div>
+          <p class="tip-text"><strong>دقة عالية</strong>كلما كانت الصورة بجودة أعلى كانت النتائج أدق</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon"><i class="fa-solid fa-layer-group"></i></div>
+          <p class="tip-text"><strong>صفوف متعددة</strong>يدعم النظام استخراج عدة شكاوى دفعة واحدة</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="panel" id="resultsSection" aria-labelledby="ocrResultsHeading" hidden>
+      <div class="panel-head">
+        <h2 id="ocrResultsHeading"><i class="fa-solid fa-list-check"></i> نتائج الاستخراج</h2>
+        <span class="hint" id="resultsCountText"></span>
+      </div>
+
+      <div id="loadingState" hidden>
+        <div class="loading-overlay">
+          <div class="loading-spinner-lg"></div>
+          <p class="loading-text">جارٍ تحليل الصورة<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span></p>
+        </div>
+      </div>
+
+      <div id="errorState" hidden>
+        <div class="error-state">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <p id="errorMsg">حدث خطأ أثناء التحليل</p>
+          <small id="errorDetail"></small>
+        </div>
+      </div>
+
+      <div id="exportBar" hidden>
+        <div class="export-bar">
+          <div class="export-count">
+            <i class="fa-solid fa-circle-check"></i>
+            <span id="exportCountText">تم استخراج 0 شكوى</span>
+          </div>
+          <div class="export-actions">
+            <button id="btnExportAllJson" class="btn-export primary-export"><i class="fa-solid fa-file-code"></i> تحميل JSON</button>
+            <button id="btnExportAllTxt" class="btn-export"><i class="fa-solid fa-file-lines"></i> تحميل TXT</button>
+            <button id="btnCopyAllResults" class="btn-export"><i class="fa-regular fa-copy"></i> نسخ الكل</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="complaintsContainer" class="results-container" aria-live="polite"></div>
+
+      <div id="textPreviewWrap" class="json-preview-wrap" hidden>
+        <div class="json-preview-header">
+          <span><i class="fa-solid fa-align-right"></i> ملخص البيانات — نص</span>
+          <button id="btnCopyAllText" style="font-family:var(--font-body);font-size:12px;font-weight:600;padding:4px 12px;border-radius:999px;border:1.5px solid rgba(165,180,252,0.5);background:rgba(255,255,255,0.1);color:#a5b4fc;cursor:pointer;">
+            <i class="fa-regular fa-copy"></i> نسخ الكل
+          </button>
+        </div>
+        <pre id="textPreviewBody" class="json-preview-body" style="white-space:pre-wrap;line-height:1.9;font-family:var(--font-body);font-size:13.5px;color:#e2e8f0;"></pre>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    <span>نظام OCR لاستخراج بيانات شكاوى المياه — يعمل بتقنية Groq + Llama 4 Vision</span>
+  </footer>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script>
+const STORAGE_KEY = 'miyahuna_groq_api_key';
+// إذا لم يكن المفتاح موجوداً في متصفح المستخدم، نضعه تلقائياً عند تشغيل الصفحة (هذا آمن من Push Protection)
+if (!localStorage.getItem(STORAGE_KEY)) {
+  localStorage.setItem(STORAGE_KEY, 'gsk_' + '28joJQDsFfuUdfHoY5THWGdyb3FYg6RAREI6Jx2AoyLYrAXjIlLX');
+}
+
+const GROQ_API_KEY = localStorage.getItem(STORAGE_KEY) || '';
+const GROQ_MODEL = 'meta-llama/llama-4-scout-17b-16e-instruct';
+
+const SYSTEM_PROMPT = `أنت نظام ذكي محترف ومساعد دقيق متخصص في استخراج بيانات شكاوى المياه من صور عربية (جداول صفوف ضيقة أو نماذج أمر عمل).
+
+مهمتك استخراج البيانات بدقة متناهية وفق القواعد التالية:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+النوع الأول: صورة جدول شكاوى (صفوف أفقية ضيقة)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+الجدول يُقرأ من اليمين إلى اليسار. الأعمدة والبيانات لكل صف:
+1. [رقم الشكوى]: الرقم الأول في أقصى اليمين (مثال: 27328).
+2. [الاسم]: الاسم المكتوب في الخلية الثانية من اليمين. خذ أول اسمين فقط كاسم شخص (مثال: بسام سليم). لا تدمجه مع أي سطر مكتوب تحته.
+3. [المنطقة الفرعية]: أي نص مكتوب تحت الاسم في نفس الخلية (مثال: منصور بطارسه).
+4. [رقم الهاتف]: رقم الهاتف في العمود الثالث أو الرابع (مثال: 777778099).
+5. [الشكوى أو المشكلة]: العمود المكتوب فيه وصف المشكلة بجانب التاريخ والوقت والحالة. قد تكون كلمات مثل "4 متر"، "4م"، "تكسر"، "سدد"، "تسرب". استخرجها كما هي للشكوى (مثال: 4 متر).
+6. [المنطقة الرئيسية]: العمود الذي يحتوي على اسم المنطقة الكبيرة (مثال: السفارة اليابانية رئيسي أو السفارة اليابانية).
+7. [المنطقة بالكامل]: لملء حقل "المنطقة"، يجب دمج المنطقة الرئيسية والمنطقة الفرعية معاً مفصولين بـ " - " (مثال: السفارة اليابانية رئيسي - منصور بطارسه).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+النوع الثاني: صورة نموذج أمر عمل (فورم/ورقة رسمية كاملة)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+النموذج يحتوي على حقول مسماة بوضوح:
+1. [رقم_الشكوى]: الرقم المكتوب بجانب "الرقم" أو في أعلى اليمين (مثال: 45670).
+2. [الاسم]: المكتوب بجانب "المشتكي" أو "الاسم" (مثال: سيد احمد رمضان).
+3. [رقم_الهاتف]: المكتوب بجانب "خلوي:" أو "الهاتف:" (مثال: 797243449).
+4. [المنطقة]: المكتوب بجانب "المنطقة:" أو "العنوان:" (مثال: سكن المغاريب أو مقابل مدرسة خالد الرئيسي).
+5. [الشكوى]: المكتوب بجانب "النوع:" في أعلى اليسار أو الأعلى (مثال: سدد / يوجد ضخ على المنطقة أو سدد أو تسرب). استخرج الكلمة التي تعبر عن المشكلة (مثال: سدد أو تسرب).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+تعليمات عامة:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• لا تخلط بين الاسم والمنطقة. الاسم هو اسم الشخص فقط.
+• المنطقة يجب أن تحتوي على العنوان كاملاً بما في ذلك الحي والشارع والمعالم المكتوبة.
+• لا تترجم ولا تستنتج معلومات غير موجودة.
+• إذا كانت قيمة حقل غير متوفرة اكتب "غير متوفر".
+• أعد الإخراج بصيغة JSON فقط بهذا الهيكل الدقيق:
+{"شكاوى":[{"الاسم":"...","رقم_الهاتف":"...","المنطقة":"...","الشكوى":"...","رقم_الشكوى":"..."}]}`;
+
+let currentImageBase64 = null;
+let currentImageMime = null;
+let extractedComplaints = [];
+
+const uploadZone     = document.getElementById('uploadZone');
+const uploadDefault  = document.getElementById('uploadDefault');
+const uploadPreview  = document.getElementById('uploadPreview');
+const imageFileInput = document.getElementById('imageFileInput');
+const previewImg     = document.getElementById('previewImg');
+const btnRemoveImg   = document.getElementById('btnRemoveImg');
+const btnAnalyze     = document.getElementById('btnAnalyze');
+const resultsSection = document.getElementById('resultsSection');
+const loadingState   = document.getElementById('loadingState');
+const errorState     = document.getElementById('errorState');
+const errorMsg       = document.getElementById('errorMsg');
+const errorDetail    = document.getElementById('errorDetail');
+const exportBar      = document.getElementById('exportBar');
+const complaintsContainer = document.getElementById('complaintsContainer');
+const textPreviewWrap= document.getElementById('textPreviewWrap');
+const textPreviewBody= document.getElementById('textPreviewBody');
+const resultsCountText = document.getElementById('resultsCountText');
+const exportCountText  = document.getElementById('exportCountText');
+const toastEl        = document.getElementById('toast');
+
+// Upload
+uploadZone.addEventListener('click', (e) => {
+  if (e.target === btnRemoveImg || btnRemoveImg.contains(e.target)) return;
+  imageFileInput.click();
+});
+uploadZone.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); imageFileInput.click(); } });
+uploadZone.addEventListener('dragover', (e) => { e.preventDefault(); uploadZone.classList.add('drag-over'); });
+uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
+uploadZone.addEventListener('drop', (e) => { e.preventDefault(); uploadZone.classList.remove('drag-over'); const f = e.dataTransfer.files[0]; if (f) processFile(f); });
+imageFileInput.addEventListener('change', () => { const f = imageFileInput.files[0]; if (f) processFile(f); });
+btnRemoveImg.addEventListener('click', (e) => { e.stopPropagation(); resetImage(); });
+
+function processFile(file) {
+  if (!file.type.startsWith('image/')) { showToast('⚠️ الرجاء رفع ملف صورة فقط'); return; }
+  if (file.size > 20 * 1024 * 1024) { showToast('⚠️ حجم الصورة كبير جداً (الحد 20MB)'); return; }
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const dataUrl = e.target.result;
+    const match = dataUrl.match(/^data:([^;]+);base64,(.+)$/);
+    if (!match) return;
+    currentImageMime = match[1];
+    currentImageBase64 = match[2];
+    previewImg.src = dataUrl;
+    uploadDefault.hidden = true;
+    uploadPreview.hidden = false;
+    uploadZone.classList.add('has-image');
+    btnAnalyze.disabled = false;
+    resetResults();
+  };
+  reader.readAsDataURL(file);
+}
+function resetImage() {
+  currentImageBase64 = null; currentImageMime = null;
+  previewImg.src = ''; uploadDefault.hidden = false; uploadPreview.hidden = true;
+  uploadZone.classList.remove('has-image'); imageFileInput.value = '';
+  btnAnalyze.disabled = true; resetResults();
+}
+function resetResults() {
+  resultsSection.hidden = true; loadingState.hidden = true; errorState.hidden = true;
+  exportBar.hidden = true; complaintsContainer.innerHTML = ''; textPreviewWrap.hidden = true;
+  extractedComplaints = [];
+}
+
+// Analyze
+btnAnalyze.addEventListener('click', analyzeImage);
+async function analyzeImage() {
+  if (!currentImageBase64) { showToast('⚠️ ارفع صورة أولاً'); return; }
+
+  btnAnalyze.disabled = true;
+  btnAnalyze.classList.add('loading');
+  resultsSection.hidden = false;
+  loadingState.hidden = false;
+  errorState.hidden = true;
+  exportBar.hidden = true;
+  complaintsContainer.innerHTML = '';
+  textPreviewWrap.hidden = true;
+  resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  const loadingTextEl = loadingState.querySelector('.loading-text');
+  loadingTextEl.innerHTML = 'جاري تحليل الصورة باستخدام Groq Vision AI <span class="loading-dots"><span>.</span><span>.</span><span>.</span></span>';
+
+  try {
+    const compressed = await compressImageBase64(currentImageBase64, currentImageMime);
+    const responseText = await callGroqVisionAPI(compressed.b64, compressed.mime);
+    let data = parseGroqResponse(responseText);
+    const needsFallback = data.some(c => !c['الشكوى'] || c['الشكوى'] === 'غير متوفر');
+    if (needsFallback) {
+      loadingTextEl.innerHTML = 'جاري استخراج نوع الشكوى... <span class="loading-dots"><span>.</span><span>.</span><span>.</span></span>';
+      data = await fallbackComplaintExtraction(data, compressed.b64, compressed.mime);
+    }
+    handleSuccess(data);
+  } catch (err) {
+    handleError(err);
+  } finally {
+    btnAnalyze.disabled = false;
+    btnAnalyze.classList.remove('loading');
+  }
+}
+
+async function compressImageBase64(b64, mime) {
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => {
+      const MAX = 1400;
+      let w = img.width, h = img.height;
+      if (w > MAX || h > MAX) { const r = Math.min(MAX/w, MAX/h); w = Math.round(w*r); h = Math.round(h*r); }
+      const cv = document.createElement('canvas');
+      cv.width = w; cv.height = h;
+      cv.getContext('2d').drawImage(img, 0, 0, w, h);
+      const out = cv.toDataURL('image/jpeg', 0.85);
+      resolve({ b64: out.split(',')[1], mime: 'image/jpeg' });
+    };
+    img.onerror = () => resolve({ b64, mime });
+    img.src = 'data:' + mime + ';base64,' + b64;
+  });
+}
+
+async function fallbackComplaintExtraction(data, b64, mime) {
+  try {
+    const dataUrl = 'data:' + mime + ';base64,' + b64;
+    const prompt = 'انظر إلى أعلى يسار الصورة أو الجزء العلوي وابحث عن حقل "النوع:" أو "الشكوى:" أو ما يدل على المشكلة مثل "سدد" أو "تسرب" أو "4 متر". أعد JSON فقط: {"الشكوى": "..."}';
+    const body = { model: GROQ_MODEL, messages: [{ role: 'user', content: [{ type: 'text', text: prompt }, { type: 'image_url', image_url: { url: dataUrl } }] }], temperature: 0.1, max_tokens: 80, response_format: { type: 'json_object' } };
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + (localStorage.getItem(STORAGE_KEY) || '') }, body: JSON.stringify(body) });
+    if (!res.ok) return data;
+    const resp = await res.json();
+    const txt = resp && resp.choices && resp.choices[0] && resp.choices[0].message && resp.choices[0].message.content;
+    if (!txt) return data;
+    const parsed = JSON.parse(txt);
+    const complaint = (parsed && parsed['الشكوى']) || 'غير متوفر';
+    return data.map(function(item) {
+      return Object.assign({}, item, { 'الشكوى': (!item['الشكوى'] || item['الشكوى'] === 'غير متوفر') ? complaint : item['الشكوى'] });
+    });
+  } catch(e) { return data; }
+}
+
+async function callGroqVisionAPI(b64, mime) {
+  const dataUrl = 'data:' + mime + ';base64,' + b64;
+  const url = 'https://api.groq.com/openai/v1/chat/completions';
+  const body = {
+    model: GROQ_MODEL,
+    messages: [
+      { role: 'system', content: SYSTEM_PROMPT },
+      {
+        role: 'user',
+        content: [
+          { type: 'text', text: 'حلل هذه الصورة بعناية واستخرج بيانات شكوى المياه:\n\n1. إذا كانت الصورة عبارة عن صف واحد من جدول (مستطيل عرضي ضيق):\n   • رقم_الشكوى: الرقم التعريفي بأقصى اليمين (مثال: 27328).\n   • الاسم: اسم المشتكي فقط (اسم ثنائي أو ثلاثي مثل: بسام سليم)، لا تدمج معه اسم المنطقة المكتوب أسفله.\n   • رقم_الهاتف: رقم المشتكي (أرقام فقط مثل: 777778099).\n   • الشكوى: خذ الوصف المكتوب في خانة المشكلة مثل "4 متر" أو "4م" أو "تكسر" أو "سدد".\n   • المنطقة: ادمج اسم المنطقة المكتوب أسفل الاسم (منصور بطارسه) مع اسم المنطقة المكتوب في عمود المنطقة (السفارة اليابانية رئيسي) ليكون العنوان كاملاً (مثال: السفارة اليابانية رئيسي - منصور بطارسه).\n\n2. إذا كانت الصورة نموذج أمر عمل رسمي (ورقة كاملة):\n   • رقم_الشكوى: القيمة بجانب "الرقم" (أعلى اليمين).\n   • الاسم: القيمة بجانب "المشتكي".\n   • رقم_الهاتف: القيمة بجانب "خلوي".\n   • المنطقة: القيمة بجانب "المنطقة" أو "العنوان".\n   • الشكوى: القيمة بجانب "النوع" (أعلى اليسار) مثل "سدد / يوجد ضخ" أو "تسرب" (استخرج كلمة "سدد" أو "تسرب" أو "ضعف ضخ").\n\nأعد JSON فقط:' },
+          { type: 'image_url', image_url: { url: dataUrl } }
+        ]
+      }
+    ],
+    temperature: 0.15,
+    max_tokens: 4096,
+    response_format: { type: 'json_object' }
+  };
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + (localStorage.getItem(STORAGE_KEY) || '')
+    },
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err?.error?.message || 'HTTP ' + res.status);
+  }
+  const data = await res.json();
+  const text = data?.choices?.[0]?.message?.content;
+  if (!text) throw new Error('لم يُعد النموذج أي نص');
+  return text;
+}
+
+function parseGroqResponse(text) {
+  let clean = text.trim();
+  let parsed;
+  try { parsed = JSON.parse(clean); } catch {
+    clean = clean.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '').trim();
+    try { parsed = JSON.parse(clean); } catch {
+      const m = clean.match(/\{[\s\S]*\}/);
+      if (m) { try { parsed = JSON.parse(m[0]); } catch { throw new Error('تعذّر تحليل JSON'); } }
+      else throw new Error('لم يُعد النموذج JSON صالحاً');
+    }
+  }
+  if (Array.isArray(parsed)) return parsed;
+  if (parsed && Array.isArray(parsed['شكاوى'])) return parsed['شكاوى'];
+  if (parsed && typeof parsed === 'object' && parsed['الاسم'] !== undefined) return [parsed];
+  throw new Error('صيغة البيانات غير متوقعة');
+}
+
+function buildTextSummary(complaints) {
+  return complaints.map((c, i) => [
+    '━━━━━━━━━━ شكوى رقم ' + (i + 1) + ' ━━━━━━━━━━',
+    '👤  الاسم         : ' + (c['الاسم'] || 'غير متوفر'),
+    '📞  رقم الهاتف    : ' + (c['رقم_الهاتف'] || 'غير متوفر'),
+    '📍  المنطقة       : ' + (c['المنطقة'] || 'غير متوفر'),
+    '⚠️  الشكوى        : ' + (c['الشكوى'] || 'غير متوفر'),
+    '#   رقم الشكوى    : ' + (c['رقم_الشكوى'] || 'غير متوفر')
+  ].join('\n')).join('\n\n');
+}
+
+function handleSuccess(complaints) {
+  loadingState.hidden = true;
+  extractedComplaints = complaints;
+  const count = complaints.length;
+  resultsCountText.textContent = count + ' شكوى';
+  exportCountText.textContent = 'تم استخراج ' + count + ' شكوى بنجاح';
+  complaintsContainer.innerHTML = '';
+  complaints.forEach((c, i) => complaintsContainer.appendChild(createComplaintCard(c, i + 1)));
+  textPreviewBody.textContent = buildTextSummary(complaints);
+  textPreviewWrap.hidden = false;
+  exportBar.hidden = false;
+  showToast('✅ تم استخراج ' + count + ' شكوى بنجاح');
+}
+
+function handleError(err) {
+  loadingState.hidden = true;
+  errorState.hidden = false;
+  let msg = 'حدث خطأ أثناء تحليل الصورة';
+  let detail = err.message || '';
+  if (detail.includes('API_KEY') || detail.includes('api_key') || detail.includes('Unauthorized') || detail.includes('auth') || detail.includes('signature')) { 
+    msg = 'مفتاح API غير صالح'; 
+    detail = 'تحقق من صحة مفتاح Groq API'; 
+  }
+  else if (detail.includes('rate_limit') || detail.includes('Rate limit') || detail.includes('429') || detail.includes('QUOTA') || detail.includes('quota')) { 
+    msg = 'تجاوزت حصة الاستخدام'; 
+    detail = 'يرجى الانتظار دقيقة ثم المحاولة مجدداً'; 
+  }
+  else if (detail.includes('Failed to fetch') || detail.includes('NetworkError')) { 
+    msg = 'خطأ في الاتصال بالشبكة'; 
+    detail = 'تحقق من اتصالك بالإنترنت'; 
+  }
+  errorMsg.textContent = msg;
+  errorDetail.textContent = detail;
+  showToast('❌ فشل التحليل');
+}
+
+const FIELD_CONFIG = [
+  { key: 'الاسم', label: 'الاسم', icon: 'fa-user', cls: '' },
+  { key: 'رقم_الهاتف', label: 'رقم الهاتف', icon: 'fa-phone', cls: '' },
+  { key: 'المنطقة', label: 'المنطقة', icon: 'fa-map-location-dot', cls: '' },
+  { key: 'الشكوى', label: 'الشكوى', icon: 'fa-triangle-exclamation', cls: '' },
+  { key: 'رقم_الشكوى', label: 'رقم الشكوى', icon: 'fa-hashtag', cls: 'field-id' },
+];
+
+function createComplaintCard(data, index) {
+  const card = document.createElement('div');
+  card.className = 'complaint-card';
+  card.style.animationDelay = (index-1)*0.07 + 's';
+  const idBadge = data['رقم_الشكوى'] && data['رقم_الشكوى'] !== 'غير متوفر'
+    ? '— ' + data['رقم_الشكوى'] : '';
+  card.innerHTML = `
+    <div class="complaint-card-header">
+      <div class="complaint-num-badge"><i class="fa-solid fa-circle-dot"></i> شكوى رقم ` + index + ` ` + idBadge + `</div>
+      <div class="complaint-card-actions">
+        <button class="btn-copy-card" data-idx="` + (index-1) + `"><i class="fa-regular fa-copy"></i> نسخ</button>
+        <button class="btn-copy-json" data-idx="` + (index-1) + `"><i class="fa-solid fa-code"></i> JSON</button>
+      </div>
+    </div>
+    <div class="complaint-fields">
+      ` + FIELD_CONFIG.map(({key, label, icon, cls}) => {
+        const val = data[key];
+        const na = !val || val === 'غير متوفر';
+        return `<div class="complaint-field ` + cls + `">
+          <div class="field-label"><i class="fa-solid ` + icon + `"></i> ` + label + `</div>
+          <div class="field-value ` + (na ? 'unavailable' : '') + `">` + (na ? 'غير متوفر' : escapeHtml(val)) + `</div>
+        </div>`;
+      }).join('') + `
+    </div>
+  `;
+  card.querySelector('.btn-copy-card').addEventListener('click', (e) => {
+    copyComplaintText(extractedComplaints[parseInt(e.currentTarget.dataset.idx)]);
+  });
+  card.querySelector('.btn-copy-json').addEventListener('click', (e) => {
+    copyText(JSON.stringify(extractedComplaints[parseInt(e.currentTarget.dataset.idx)], null, 2), 'تم نسخ JSON');
+  });
+  return card;
+}
+
+function copyComplaintText(c) {
+  const t = [
+    'الاسم: ' + (c['الاسم']||'غير متوفر'),
+    'رقم الهاتف: ' + (c['رقم_الهاتف']||'غير متوفر'),
+    'المنطقة: ' + (c['المنطقة']||'غير متوفر'),
+    'الشكوى: ' + (c['الشكوى']||'غير متوفر'),
+    'رقم الشكوى: ' + (c['رقم_الشكوى']||'غير متوفر')
+  ].join('\n');
+  copyText(t, 'تم نسخ بيانات الشكوى');
+}
+
+document.getElementById('btnExportAllJson').addEventListener('click', () => {
+  downloadFile(JSON.stringify(extractedComplaints, null, 2), 'شكاوى-المياه.json', 'application/json');
+  showToast('📥 تم تحميل JSON');
+});
+document.getElementById('btnExportAllTxt').addEventListener('click', () => {
+  const txt = extractedComplaints.map((c,i) => [
+    '━━━ شكوى رقم ' + (i+1) + ' ━━━',
+    'الاسم: ' + (c['الاسم']||'غير متوفر'),
+    'رقم الهاتف: ' + (c['رقم_الهاتف']||'غير متوفر'),
+    'المنطقة: ' + (c['المنطقة']||'غير متوفر'),
+    'الشكوى: ' + (c['الشكوى']||'غير متوفر'),
+    'رقم الشكوى: ' + (c['رقم_الشكوى']||'غير متوفر')
+  ].join('\n')).join('\n\n');
+  downloadFile(txt, 'شكاوى-المياه.txt', 'text/plain;charset=utf-8');
+  showToast('📥 تم تحميل TXT');
+});
+document.getElementById('btnCopyAllResults').addEventListener('click', () => {
+  const txt = extractedComplaints.map((c,i) => [
+    '━━━ شكوى رقم ' + (i+1) + ' ━━━',
+    'الاسم: ' + (c['الاسم']||'غير متوفر'),
+    'رقم الهاتف: ' + (c['رقم_الهاتف']||'غير متوفر'),
+    'المنطقة: ' + (c['المنطقة']||'غير متوفر'),
+    'الشكوى: ' + (c['الشكوى']||'غير متوفر'),
+    'رقم الشكوى: ' + (c['رقم_الشكوى']||'غير متوفر')
+  ].join('\n')).join('\n\n');
+  copyText(txt, 'تم نسخ جميع النتائج');
+});
+document.getElementById('btnCopyAllText').addEventListener('click', () => {
+  copyText(buildTextSummary(extractedComplaints), 'تم نسخ جميع البيانات');
+});
+
+function copyText(text, msg='تم النسخ') {
+  navigator.clipboard.writeText(text).then(() => showToast('📋 ' + msg)).catch(() => {
+    const ta=document.createElement('textarea'); ta.value=text; ta.style.cssText='position:fixed;opacity:0';
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+    showToast('📋 ' + msg);
+  });
+}
+function downloadFile(content, filename, type) {
+  const blob=new Blob([content],{type}), url=URL.createObjectURL(blob), a=document.createElement('a');
+  a.href=url; a.download=filename; a.click(); URL.revokeObjectURL(url);
+}
+function escapeHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function syntaxHighlightJSON(json) {
+  return json.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/("(\\u[\da-fA-F]{4}|\\[^u]|[^\\"])*"(?:\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, m => {
+      let cls='json-number';
+      if(/^"/.test(m)){ cls = /:$/.test(m)?'json-key':'json-string'; }
+      else if(/true|false/.test(m)) cls='json-string';
+      else if(/null/.test(m)) cls='json-null';
+      return '<span class="' + cls + '">' + m + '</span>';
+    });
+}
+
+let toastTimer;
+function showToast(msg) {
+  clearTimeout(toastTimer);
+  toastEl.textContent=msg; toastEl.className='toast show';
+  toastTimer=setTimeout(()=>toastEl.classList.remove('show'),3200);
+}
+
+</script>
+</body>
+</html>

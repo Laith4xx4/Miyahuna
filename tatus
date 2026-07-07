@@ -1,0 +1,5 @@
+[33m3a110b8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m وصف التعديل هنا
+[33m9d2997b[m feat: add interactive Jordan map with view switcher and optimize Leaflet loading
+[33m9e631c8[m chore: add .nojekyll to bypass Jekyll and fix Pages deployment
+[33m8715916[m feat: add type detection (دور/تعميم), deduplication, and visual badges
+[33me5aa1fc[m docs: add README.md
